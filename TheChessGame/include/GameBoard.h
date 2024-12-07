@@ -35,7 +35,7 @@ public:
     void clear_board();
     void refresh_board();
 
-    // void print_board(); // For debugging purposes
+    void print_board(); // For debugging purposes
 };
 
 #endif
