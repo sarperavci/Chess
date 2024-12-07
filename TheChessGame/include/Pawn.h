@@ -9,7 +9,7 @@ private:
     bool has_moved = false;
 
 public:
-    Pawn(Color color, int position);
+    Pawn(int position, Color color);
     int get_position() override;
     Color get_color() override;
     bool is_valid_move(int destination) override;

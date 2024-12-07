@@ -1,5 +1,7 @@
 #include "Pawn.h"
 
+Pawn::Pawn(int position, Color color) : Piece(position, PieceType::PAWN ,color) {}
+
 int Pawn::get_position()
 {
     return position;
