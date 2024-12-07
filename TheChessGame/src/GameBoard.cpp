@@ -38,6 +38,246 @@ void GameBoard::set_piece(int row, int col, Piece *piece)
     set_piece(indexes2DToInt(row, col), piece);
 }
 
+bool GameBoard::is_pawn_move_blocked(Piece *piece, int destination, bool is_eat)
+{
+    int position = piece->get_position();
+    Color color = piece->get_color();
+    int direction = (color == Color::WHITE) ? 1 : -1;
+
+    // Check if the move is a forward move
+    if (!is_eat)
+    {
+        if (destination == position + 8 * direction)
+        {
+            return board[destination] != nullptr;
+        }
+        if ((position / 8 == 1 && color == Color::WHITE) || (position / 8 == 6 && color == Color::BLACK))
+        {
+            if (destination == position + 16 * direction)
+            {
+                return board[position + 8 * direction] != nullptr || board[destination] != nullptr;
+            }
+        }
+    }
+    else
+    {
+        // Check if the move is a diagonal capture
+        if ((destination == position + 7 * direction && position % 8 != 0) ||
+            (destination == position + 9 * direction && position % 8 != 7))
+        {
+            return board[destination] == nullptr || board[destination]->get_color() == color;
+        }
+    }
+
+    // If none of the above conditions are met, the move is invalid for a pawn
+    return true;
+}
+
+bool GameBoard::is_bishop_move_blocked(Piece *piece, int destination, bool is_eat)
+{
+    int position = piece->get_position();
+    int row_diff = abs(destination / 8 - position / 8);
+    int col_diff = abs(destination % 8 - position % 8);
+
+    // Bishops move diagonally, so the row difference and column difference must be equal
+    if (row_diff != col_diff)
+    {
+        return true; // Invalid bishop move
+    }
+
+    int row_direction = (destination / 8 > position / 8) ? 1 : -1;
+    int col_direction = (destination % 8 > position % 8) ? 1 : -1;
+
+    int current_row = position / 8 + row_direction;
+    int current_col = position % 8 + col_direction;
+
+    while (current_row != destination / 8 || current_col != destination % 8)
+    {
+        int current_position = current_row * 8 + current_col;
+        if (board[current_position] != nullptr)
+        {
+            return true; // There is a piece blocking the bishop's path
+        }
+        current_row += row_direction;
+        current_col += col_direction;
+    }
+
+    // Check if the destination is occupied by a piece of the same color
+    if (board[destination] != nullptr)
+    {
+        if (board[destination]->get_color() == piece->get_color())
+        {
+            return true; // The move is blocked by a piece of the same color
+        }
+        else if (!is_eat)
+        {
+            return true; // The move is blocked by an enemy piece and it's not a capture move
+        }
+    }
+
+    return false; // No pieces are blocking the bishop's path
+}
+
+bool GameBoard::is_knight_move_blocked(Piece *piece, int destination, bool is_eat)
+{
+    // Check if the destination is occupied
+    if (board[destination] != nullptr)
+    {
+        // If the destination is occupied by a piece of the same color, the move is blocked
+        if (board[destination]->get_color() == piece->get_color())
+        {
+            return true;
+        }
+        // If the destination is occupied by an enemy piece and it's not a capture move, the move is blocked
+        else if (!is_eat)
+        {
+            return true;
+        }
+    }
+
+    return false; // The move is not blocked
+}
+
+bool GameBoard::is_king_move_blocked(Piece *piece, int destination, bool is_eat)
+{
+    // Check if the destination is occupied
+    if (board[destination] != nullptr)
+    {
+        // If the destination is occupied by a piece of the same color, the move is blocked
+        if (board[destination]->get_color() == piece->get_color())
+        {
+            return true;
+        }
+        // If the destination is occupied by an enemy piece and it's not a capture move, the move is blocked
+        else if (!is_eat)
+        {
+            return true;
+        }
+    }
+
+    // If the destination is not occupied or it's a valid capture move, the move is not blocked
+    return false;
+}
+
+bool GameBoard::is_queen_move_blocked(Piece *piece, int destination, bool is_eat)
+{
+    int position = piece->get_position();
+    int row_diff = abs(destination / 8 - position / 8);
+    int col_diff = abs(destination % 8 - position % 8);
+
+    // Determine the direction of the move
+    int row_direction = (destination / 8 > position / 8) ? 1 : (destination / 8 < position / 8) ? -1
+                                                                                                : 0;
+    int col_direction = (destination % 8 > position % 8) ? 1 : (destination % 8 < position % 8) ? -1
+                                                                                                : 0;
+
+    // Check if the move is horizontal, vertical, or diagonal
+    if (row_diff == col_diff || row_diff == 0 || col_diff == 0)
+    {
+        int current_row = position / 8 + row_direction;
+        int current_col = position % 8 + col_direction;
+
+        while (current_row != destination / 8 || current_col != destination % 8)
+        {
+            int current_position = current_row * 8 + current_col;
+            if (board[current_position] != nullptr)
+            {
+                return true; // There is a piece blocking the queen's path
+            }
+            current_row += row_direction;
+            current_col += col_direction;
+        }
+    }
+    else
+    {
+        return true; // Invalid queen move
+    }
+
+    // Check if the destination is occupied by a piece of the same color
+    if (board[destination] != nullptr)
+    {
+        if (board[destination]->get_color() == piece->get_color())
+        {
+            return true; // The move is blocked by a piece of the same color
+        }
+        else if (!is_eat)
+        {
+            return true; // The move is blocked by an enemy piece and it's not a capture move
+        }
+    }
+
+    return false; // No pieces are blocking the queen's path
+}
+
+bool GameBoard::is_rook_move_blocked(Piece *piece, int destination, bool is_eat)
+{
+    int position = piece->get_position();
+    int row_diff = abs(destination / 8 - position / 8);
+    int col_diff = abs(destination % 8 - position % 8);
+
+    // Rooks move horizontally or vertically, so either row_diff or col_diff must be zero
+    if (row_diff != 0 && col_diff != 0)
+    {
+        return true; // Invalid rook move
+    }
+
+    int row_direction = (destination / 8 > position / 8) ? 1 : (destination / 8 < position / 8) ? -1
+                                                                                                : 0;
+    int col_direction = (destination % 8 > position % 8) ? 1 : (destination % 8 < position % 8) ? -1
+                                                                                                : 0;
+
+    int current_row = position / 8 + row_direction;
+    int current_col = position % 8 + col_direction;
+
+    while (current_row != destination / 8 || current_col != destination % 8)
+    {
+        int current_position = current_row * 8 + current_col;
+        if (board[current_position] != nullptr)
+        {
+            return true; // There is a piece blocking the rook's path
+        }
+        current_row += row_direction;
+        current_col += col_direction;
+    }
+
+    // Check if the destination is occupied by a piece of the same color
+    if (board[destination] != nullptr)
+    {
+        if (board[destination]->get_color() == piece->get_color())
+        {
+            return true; // The move is blocked by a piece of the same color
+        }
+        else if (!is_eat)
+        {
+            return true; // The move is blocked by an enemy piece and it's not a capture move
+        }
+    }
+
+    return false; // No pieces are blocking the rook's path
+}
+
+// Wrapper function for the move_piece function
+bool GameBoard::is_move_blocked(Piece *piece, int destination, bool is_eat = false)
+{
+    switch (piece->get_piece_type())
+    {
+    case PieceType::PAWN:
+        return is_pawn_move_blocked(piece, destination, is_eat);
+    case PieceType::BISHOP:
+        return is_bishop_move_blocked(piece, destination, is_eat);
+    case PieceType::KNIGHT:
+        return is_knight_move_blocked(piece, destination, is_eat);
+    case PieceType::KING:
+        return is_king_move_blocked(piece, destination, is_eat);
+    case PieceType::QUEEN:
+        return is_queen_move_blocked(piece, destination, is_eat);
+    case PieceType::ROOK:
+        return is_rook_move_blocked(piece, destination, is_eat);
+    default:
+        return true;
+    }
+}
+
 void GameBoard::move_piece(Piece *piece, int destination)
 {
     // Get the current position of the piece
@@ -45,15 +285,32 @@ void GameBoard::move_piece(Piece *piece, int destination)
 
     // Get the valid moves for the piece
     std::vector<int> valid_moves = piece->get_valid_moves();
+    std::vector<int> eatable_moves = piece->get_eatable_moves();
 
-    // Check if the destination is a valid move
-    if (std::find(valid_moves.begin(), valid_moves.end(), destination) != valid_moves.end())
+    // Check if the destination is a valid move or capture
+    bool is_valid_move = std::find(valid_moves.begin(), valid_moves.end(), destination) != valid_moves.end();
+    bool is_valid_capture = std::find(eatable_moves.begin(), eatable_moves.end(), destination) != eatable_moves.end();
+
+    if (is_valid_move || is_valid_capture)
     {
-        if (board[destination] == nullptr)
+        // Check if the path is blocked for pieces that move along a path
+        bool is_blocked = is_move_blocked(piece, destination, is_valid_capture);
+
+        if (!is_blocked)
         {
-            board[position] = nullptr;
-            board[destination] = piece;
-            piece->move(destination);
+            // Handle move or capture
+            if (board[destination] == nullptr || is_valid_capture)
+            {
+                if (is_valid_capture && board[destination] != nullptr)
+                {
+                    // Capture the piece
+                    delete board[destination];
+                }
+                // Move the piece
+                board[position] = nullptr;
+                board[destination] = piece;
+                piece->move(destination);
+            }
         }
     }
 }
@@ -63,11 +320,20 @@ void GameBoard::move_piece(Piece *piece, int row, int col)
     move_piece(piece, indexes2DToInt(row, col));
 }
 
+void GameBoard::move_piece(int position, int destination)
+{
+    if (board[position] != nullptr)
+    {
+
+        move_piece(get_piece(position), destination);
+    }
+}
+
 void GameBoard::remove_piece(int position)
 {
     if (board[position] != nullptr)
     {
-        //delete board[position];
+        delete board[position];
         board[position] = nullptr;
     }
 }
@@ -79,8 +345,12 @@ void GameBoard::remove_piece(int row, int col)
 
 void GameBoard::initiate_board()
 {
+    // I know it's very confusing but they're whites...
+    // White pieces: ♙ ♘ ♗ ♕ ♔ ♗ ♘ ♖
+    // Black pieces: ♟ ♞ ♝ ♛ ♚ ♝ ♞ ♜
+    // really, compare https://www.compart.com/en/unicode/U+265C and https://www.compart.com/en/unicode/U+2656
+    // I thought that was a bug, so I spent almost 1 hour to find out that it's not a bug.
 
-    // White pieces
     set_piece(0, new Rook(0, Color::WHITE));
     set_piece(1, new Knight(1, Color::WHITE));
     set_piece(2, new Bishop(2, Color::WHITE));
@@ -94,7 +364,6 @@ void GameBoard::initiate_board()
         set_piece(i, new Pawn(i, Color::WHITE));
     }
 
-    // Black pieces
     set_piece(56, new Rook(56, Color::BLACK));
     set_piece(57, new Knight(57, Color::BLACK));
     set_piece(58, new Bishop(58, Color::BLACK));
@@ -121,7 +390,7 @@ void GameBoard::clear_board()
     {
         if (board[i] != nullptr)
         {
-           // delete board[i];
+            delete board[i];
             board[i] = nullptr;
         }
     }
