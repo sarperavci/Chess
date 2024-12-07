@@ -27,6 +27,7 @@ protected:
 
 public:
     Piece(int position, PieceType piece_type, Color color) : position(position), piece_type(piece_type), color(color) {}
+    virtual ~Piece() {} 
     virtual int get_position() = 0;
     virtual Color get_color() = 0;
     virtual PieceType get_piece_type() = 0;
