@@ -33,6 +33,8 @@ public:
     virtual void move(int destination) = 0;
     virtual PieceType get_piece_type() = 0;
     virtual std::vector<int> get_valid_moves() = 0;
+    virtual std::vector<int> get_eatable_moves() = 0;
+    virtual bool is_valid_eat(int destination) = 0;
 };
 
 #endif
