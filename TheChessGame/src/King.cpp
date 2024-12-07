@@ -96,6 +96,7 @@ std::vector<int> King::get_eatable_moves()
             }       
         }
         eatable_moves.push_back(current_position);   
+    }
 
     return eatable_moves;
 }
