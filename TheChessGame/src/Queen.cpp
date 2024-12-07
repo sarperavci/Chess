@@ -1,4 +1,5 @@
 #include "Queen.h"
+#include <cstdlib>
 
 Queen::Queen(int position, Color color) : Piece(position, PieceType::Queen ,color) {}
 
@@ -31,9 +32,6 @@ bool Queen::is_valid_move(int destination)
 
 void Queen::move(int destination)
 {
-    if (!has_moved)
-        has_moved = true;
-
     position = destination;
 }
 
@@ -60,6 +58,12 @@ std::vector<int> Queen::get_valid_moves()
 
             if ((direction == -8 || direction == 8) && (current_position % 8 != position % 8)) { // if they are not on the same vertical level
                 break;  
+            }
+
+            if (direction == -9 || direction == 9 || direction == -7 || direction == 7){  // if they are not on the same cross level
+                if(abs(current_position / 8 - position / 8) != abs(current_position % 8 - position % 8)){
+                    break;
+                }       
             }
 
             valid_moves.push_back(current_position);

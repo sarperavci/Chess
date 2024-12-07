@@ -3,9 +3,6 @@
 #include "Piece.h"
 
 class Queen : public Piece{
-private:
-    bool has_moved = false;
-
 public:
     Queen(Color color, int position);
     int get_position() override;
