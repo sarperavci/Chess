@@ -18,18 +18,6 @@ PieceType Queen::get_piece_type()
     return piece_type;
 }
 
-bool Queen::is_valid_move(int destination)
-{
-    std::vector<int> valid_moves = get_valid_moves();
-    for (int i = 0; i < valid_moves.size(); i++)
-    {
-        if (destination == valid_moves[i])
-        {
-            return true;
-        }
-    }
-}
-
 void Queen::move(int destination)
 {
     position = destination;
@@ -109,17 +97,4 @@ std::vector<int> Queen::get_eatable_moves()
     }  
 
     return eatable_moves;
-}
-
-bool Queen::is_valid_eat(int destination)
-{
-    std::vector<int> eatable_moves = get_eatable_moves();
-    for (int i = 0; i < eatable_moves.size(); i++)
-    {
-        if (destination == eatable_moves[i])
-        {
-            return true;
-        }
-    }
-    return false;
 }

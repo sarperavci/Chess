@@ -17,18 +17,6 @@ PieceType Pawn::get_piece_type()
     return piece_type;
 }
 
-bool Pawn::is_valid_move(int destination)
-{
-    std::vector<int> valid_moves = get_valid_moves();
-    for (int i = 0; i < valid_moves.size(); i++)
-    {
-        if (destination == valid_moves[i])
-        {
-            return true;
-        }
-    }
-}
-
 void Pawn::move(int destination)
 {
     if (!has_moved)
@@ -103,17 +91,4 @@ std::vector<int> Pawn::get_eatable_moves()
     }
 
     return eatable_moves;
-}
-
-bool Pawn::is_valid_eat(int destination)
-{
-    std::vector<int> eatable_moves = get_eatable_moves();
-    for (int i = 0; i < eatable_moves.size(); i++)
-    {
-        if (destination == eatable_moves[i])
-        {
-            return true;
-        }
-    }
-    return false;
 }

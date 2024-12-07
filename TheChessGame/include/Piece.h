@@ -29,12 +29,14 @@ public:
     Piece(int position, PieceType piece_type, Color color) : position(position), piece_type(piece_type), color(color) {}
     virtual int get_position() = 0;
     virtual Color get_color() = 0;
-    virtual bool is_valid_move(int destination) = 0;
-    virtual void move(int destination) = 0;
     virtual PieceType get_piece_type() = 0;
+
+    virtual void move(int destination) = 0;
+    
     virtual std::vector<int> get_valid_moves() = 0;
     virtual std::vector<int> get_eatable_moves() = 0;
-    virtual bool is_valid_eat(int destination) = 0;
+    bool is_valid_move(int destination);
+    bool is_valid_eat(int destination);
 };
 
 #endif
