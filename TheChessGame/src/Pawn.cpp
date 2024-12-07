@@ -1,6 +1,6 @@
 #include "Pawn.h"
 
-Pawn::Pawn(int position, Color color) : Piece(position, PieceType::PAWN ,color) {}
+Pawn::Pawn(int position, Color color) : Piece(position, PieceType::PAWN, color) {}
 
 int Pawn::get_position()
 {
@@ -69,4 +69,51 @@ std::vector<int> Pawn::get_valid_moves()
     }
 
     return valid_moves;
+}
+
+std::vector<int> Pawn::get_eatable_moves()
+{
+    std::vector<int> eatable_moves;
+
+    if (color == Color::WHITE)
+    {
+        // Eat diagonally left
+        if (position + 7 <= 63 && (position % 8 != 0))
+        {
+            eatable_moves.push_back(position + 7);
+        }
+        // Eat diagonally right
+        if (position + 9 <= 63 && (position % 8 != 7))
+        {
+            eatable_moves.push_back(position + 9);
+        }
+    }
+    else
+    {
+        // Eat diagonally left
+        if (position - 9 >= 0 && (position % 8 != 0))
+        {
+            eatable_moves.push_back(position - 9);
+        }
+        // Eat diagonally right
+        if (position - 7 >= 0 && (position % 8 != 7))
+        {
+            eatable_moves.push_back(position - 7);
+        }
+    }
+
+    return eatable_moves;
+}
+
+bool Pawn::is_valid_eat(int destination)
+{
+    std::vector<int> eatable_moves = get_eatable_moves();
+    for (int i = 0; i < eatable_moves.size(); i++)
+    {
+        if (destination == eatable_moves[i])
+        {
+            return true;
+        }
+    }
+    return false;
 }
