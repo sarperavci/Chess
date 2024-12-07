@@ -20,7 +20,7 @@ enum class PieceType
 // Virtual class for a chess piece
 class Piece
 {
-private:
+protected:
     int position;
     PieceType piece_type;
     Color color;
