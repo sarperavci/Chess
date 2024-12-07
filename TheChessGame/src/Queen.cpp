@@ -1,7 +1,7 @@
 #include "Queen.h"
 #include <cstdlib>
 
-Queen::Queen(int position, Color color) : Piece(position, PieceType::Queen ,color) {}
+Queen::Queen(int position, Color color) : Piece(position, PieceType::QUEEN ,color) {}
 
 int Queen::get_position()
 {
