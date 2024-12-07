@@ -1,11 +1,11 @@
-#ifndef KNIGHT_H
-#define KNIGHT_H
+#ifndef KING_H
+#define KING_H
 #include "Piece.h"
 
-class Knight : public Piece
+class King : public Piece
 {
 public:
-    Knight(int position, Color color);
+    King(int position, Color color);
     int get_position() override;
     Color get_color() override;
     bool is_valid_move(int destination) override;

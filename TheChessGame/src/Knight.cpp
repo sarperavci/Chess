@@ -1,6 +1,6 @@
 #include "Knight.h"
 
-Knight::Knight(int position, Color color) : Piece(position, PieceType::Knight ,color) {}
+Knight::Knight(int position, Color color) : Piece(position, PieceType::KNIGHT ,color) {}
 
 int Knight::get_position()
 {
@@ -49,49 +49,49 @@ std::vector<int> Knight::get_valid_moves()
         }
 
         if(direction == -6){  // L movement: first 1 up, then 2 right
-            if(new_position / 8 == position / 8){  // break if it comes to same horizontal level
+            if(new_position / 8 == position / 8){  // continue if it comes to same horizontal level
                 continue;
             }
         }
 
         if(direction == 6){  // L movement: first 2 left, then 1 down
-            if(new_position / 8 == position / 8){  // break if it comes to same horizontal level
+            if(new_position / 8 == position / 8){  // continue if it comes to same horizontal level
                 continue;
             }
         }
 
         if(direction == -10){  // L movement: first 1 up, then 2 left
-            if((new_position / 8) - (position / 8) == -2){  // break if the new position is 2 rows above the previous position
+            if((new_position / 8) - (position / 8) == -2){  // continue if the new position is 2 rows above the previous position
                 continue;
             }  
         }
 
         if(direction == 10){   // L movement: first 2 right, then 1 down
-            if((new_position / 8) - (position / 8) == 2){  // break if the new position is 2 rows down the previous position
+            if((new_position / 8) - (position / 8) == 2){  // continue if the new position is 2 rows down the previous position
                 continue;
             }
         }
 
         if(direction == -17){  // L movement: first 2 up, then 1 left
-            if((new_position / 8) - (position / 8) != -2){  // break if the new position is not 2 rows above the previous position
+            if((new_position / 8) - (position / 8) != -2){  // continue if the new position is not 2 rows above the previous position
                 continue;
             }
         }
 
         if(direction == 17){   // L movement: first 1 right, then 2 down
-            if((new_position / 8) - (position / 8) != 2){  // break if the new position is not 2 rows down the previous position
+            if((new_position / 8) - (position / 8) != 2){  // continue if the new position is not 2 rows down the previous position
                 continue;
             }
         }
 
         if(direction == -15){  // L movement: first 2 up, then 1 right
-            if((new_position / 8) - (position / 8) != -2){  // break if the new position is not 2 rows above the previous position
+            if((new_position / 8) - (position / 8) != -2){  // continue if the new position is not 2 rows above the previous position
                 continue;
             }
         }
 
         if(direction == 15){   // L movement: first 1 left, then 2 down
-            if((new_position / 8) - (position / 8) != 2){  // break if the new position is not 2 rows down the previous position
+            if((new_position / 8) - (position / 8) != 2){  // continue if the new position is not 2 rows down the previous position
                 continue;
             }
         }
@@ -100,4 +100,85 @@ std::vector<int> Knight::get_valid_moves()
     }
 
     return valid_moves;
+}
+
+std::vector<int> Knight::get_eatable_moves()
+{
+    std::vector<int> eatable_moves;
+
+    int directions[] = {-10, 6, -6, 10, -17, 17, -15, 15};    // index change of L moves. 
+    int new_position;
+
+    for (int direction : directions) {
+        new_position = position + direction; 
+
+        if (new_position < 0 || new_position > 63){
+            continue;
+        }
+
+        if(direction == -6){  
+            if(new_position / 8 == position / 8){  
+                continue;
+            }
+        }
+
+        if(direction == 6){  
+            if(new_position / 8 == position / 8){  
+                continue;
+            }
+        }
+
+        if(direction == -10){  
+            if((new_position / 8) - (position / 8) == -2){  
+                continue;
+            }  
+        }
+
+        if(direction == 10){  
+            if((new_position / 8) - (position / 8) == 2){  
+                continue;
+            }
+        }
+
+        if(direction == -17){ 
+            if((new_position / 8) - (position / 8) != -2){ 
+                continue;
+            }
+        }
+
+        if(direction == 17){   
+            if((new_position / 8) - (position / 8) != 2){  
+                continue;
+            }
+        }
+
+        if(direction == -15){  
+            if((new_position / 8) - (position / 8) != -2){  
+                continue;
+            }
+        }
+
+        if(direction == 15){  
+            if((new_position / 8) - (position / 8) != 2){  
+                continue;
+            }
+        }
+
+        eatable_moves.push_back(new_position);
+    }   
+
+    return eatable_moves;
+}
+
+bool Knight::is_valid_eat(int destination)
+{
+    std::vector<int> eatable_moves = get_eatable_moves();
+    for (int i = 0; i < eatable_moves.size(); i++)
+    {
+        if (destination == eatable_moves[i])
+        {
+            return true;
+        }
+    }
+    return false;
 }

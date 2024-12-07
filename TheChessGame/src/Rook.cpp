@@ -65,3 +65,48 @@ std::vector<int> Rook::get_valid_moves()
 
     return valid_moves;
 }
+
+std::vector<int> Rook::get_eatable_moves()
+{
+    std::vector<int> eatable_moves;
+
+    int directions[] = {-1, 1, -8, 8};  // vertical and horizontal moves
+    int current_position; 
+
+        for(int direction : directions){
+            current_position = position;
+
+            while(true){
+                current_position += direction;
+
+                if (current_position < 0 || current_position > 63){
+                    break;
+                }
+
+                if ((direction == -1 || direction == 1) && (current_position / 8 != position / 8)) { // if they are not on the same horizontal level
+                    break; 
+                }
+
+                if ((direction == -8 || direction == 8) && (current_position % 8 != position % 8)) { // if they are not on the same vertical level
+                    break;  
+                }
+
+                eatable_moves.push_back(current_position);    
+            }
+        }
+
+    return eatable_moves;
+}
+
+bool Rook::is_valid_eat(int destination)
+{
+    std::vector<int> eatable_moves = get_eatable_moves();
+    for (int i = 0; i < eatable_moves.size(); i++)
+    {
+        if (destination == eatable_moves[i])
+        {
+            return true;
+        }
+    }
+    return false;
+}
