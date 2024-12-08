@@ -19,6 +19,8 @@ PieceType Rook::get_piece_type()
 
 void Rook::move(int destination)
 {
+    if (!has_moved)
+        has_moved = true;
     position = destination;
 }
 
@@ -84,4 +86,8 @@ std::vector<int> Rook::get_eatable_moves()
         }
 
     return eatable_moves;
+}
+
+bool Rook::get_has_moved() const {
+    return has_moved;
 }

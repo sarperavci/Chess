@@ -16,6 +16,7 @@ public:
     PieceType get_piece_type() override;
     std::vector<int> get_valid_moves() override;
     std::vector<int> get_eatable_moves() override;
+    bool get_has_moved() const;
 };
 
 #endif

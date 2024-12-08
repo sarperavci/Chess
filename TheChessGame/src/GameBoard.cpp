@@ -18,6 +18,10 @@ GameBoard::GameBoard()
     }
 }
 
+GameBoard::~GameBoard() {
+
+}
+
 Piece *GameBoard::get_piece(int position)
 {
     return board[position];
@@ -419,9 +423,13 @@ bool GameBoard::is_check(Color color)
     for (int i = 0; i < 64; i++) {
         Piece *piece = board[i];
         if (piece != nullptr && piece->get_color() == opponent_color) {
-            std::vector<int> valid_moves = piece->get_valid_moves();
-            if (std::find(valid_moves.begin(), valid_moves.end(), king_position) != valid_moves.end()) {
-                return true;  // The king is in check
+            std::vector<int> valid_moves = piece->get_eatable_moves();
+            for (int move : valid_moves) {
+                if (move == king_position) {
+                    if (!is_move_blocked(piece, move, false)) {
+                        return true;  // The king is in check
+                    }
+                }
             }
         }
     }
