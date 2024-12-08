@@ -15,6 +15,13 @@ OBJS = $(SRCS:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 # Define the target executable
 TARGET = main
 
+# OS-specific mkdir command
+ifeq ($(OS),Windows_NT)
+    MKDIR = if not exist "$(OBJDIR)" mkdir $(OBJDIR)
+else
+    MKDIR = mkdir -p $(OBJDIR)
+endif
+
 # Default target
 all: $(TARGET)
 
@@ -24,7 +31,7 @@ $(TARGET): $(OBJS)
 
 # Rule to build object files
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
-	@mkdir -p $(OBJDIR)
+	$(MKDIR)  # Ensure the object directory exists
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Clean up build files
