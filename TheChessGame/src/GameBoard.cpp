@@ -396,6 +396,38 @@ void GameBoard::clear_board()
     }
 }
 
+bool GameBoard::is_check(Color color)
+{
+    int king_position = -1;
+
+    // Function to find the position of the king of a given color
+    for (int i = 0; i < 64; i++) {
+        Piece *piece = board[i];
+        if (piece != nullptr && piece->get_piece_type() == PieceType::KING && piece->get_color() == color) {
+            king_position = i;
+            break;
+        }
+    }
+
+    // there is an error if the king cannot be found according to the given color
+    if (king_position == -1) {
+        return false;
+    }
+
+    Color opponent_color = (color == Color::WHITE) ? Color::BLACK : Color::WHITE;
+
+    for (int i = 0; i < 64; i++) {
+        Piece *piece = board[i];
+        if (piece != nullptr && piece->get_color() == opponent_color) {
+            std::vector<int> valid_moves = piece->get_valid_moves();
+            if (std::find(valid_moves.begin(), valid_moves.end(), king_position) != valid_moves.end()) {
+                return true;  // The king is in check
+            }
+        }
+    }
+    return false;  // The king is not in check
+}
+
 void GameBoard::print_board()
 {
     const char *WHITE_PAWN = "\u2659";

@@ -44,6 +44,8 @@ public:
     void clear_board();
     void refresh_board();
 
+    bool is_check(Color color);
+
     void print_board(); // For debugging purposes
 };
 

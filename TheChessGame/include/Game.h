@@ -20,6 +20,10 @@ public:
     bool is_stalemate();
     bool is_check();
     bool is_draw();
+    void check_pawn_promotion(int position, Piece* piece);
+    void check_en_passant(int position, Piece* piece, int dest);
+    void check_castling(int position, Piece* piece, int dest);
+    void update_game_status();
 
     GameBoard *get_game_board();
     Color get_current_turn();
