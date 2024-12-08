@@ -20,6 +20,8 @@ PieceType King::get_piece_type()
 
 void King::move(int destination)
 {
+    if (!has_moved)
+        has_moved = true;
     position = destination;
 }
 
@@ -87,4 +89,8 @@ std::vector<int> King::get_eatable_moves()
     }
 
     return eatable_moves;
+}
+
+bool King::get_has_moved() const {
+    return has_moved;
 }

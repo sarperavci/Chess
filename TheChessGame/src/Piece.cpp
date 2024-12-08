@@ -27,3 +27,12 @@ bool Piece::is_valid_eat(int destination)
     }
     return false;
 }
+
+void Piece::set_piece_type(PieceType new_type)
+{
+    piece_type = new_type;
+}
+
+void Piece::set_position(int new_position) {
+    position = new_position;
+}

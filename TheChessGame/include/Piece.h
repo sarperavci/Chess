@@ -38,6 +38,9 @@ public:
     virtual std::vector<int> get_eatable_moves() = 0;
     bool is_valid_move(int destination);
     bool is_valid_eat(int destination);
+
+    void set_piece_type(PieceType new_type);
+    void set_position(int new_position);
 };
 
 #endif
