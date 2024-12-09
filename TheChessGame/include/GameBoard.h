@@ -25,14 +25,6 @@ public:
     void set_piece(int position, Piece *piece);
     void set_piece(int row, int col, Piece *piece);
 
-    bool is_move_blocked(Piece *piece, int destination, bool is_eat);
-    bool is_bishop_move_blocked(Piece *piece, int destination, bool is_eat);
-    bool is_pawn_move_blocked(Piece *piece, int destination, bool is_eat);
-    bool is_knight_move_blocked(Piece *piece, int destination, bool is_eat);
-    bool is_king_move_blocked(Piece *piece, int destination, bool is_eat);
-    bool is_queen_move_blocked(Piece *piece, int destination, bool is_eat);
-    bool is_rook_move_blocked(Piece *piece, int destination, bool is_eat);
-
     void move_piece(Piece *piece, int destination);
     void move_piece(Piece *piece, int row, int col);
     void move_piece(int position, int destination);
