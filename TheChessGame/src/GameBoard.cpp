@@ -261,6 +261,8 @@ bool GameBoard::is_rook_move_blocked(Piece *piece, int destination, bool is_eat)
 }
 
 // Wrapper function for the move_piece function
+// is_eat=True adds an additional check for the destination square, to see if it's occupied by an enemy piece
+// is_eat=False is used for moves that don't involve capturing an enemy piece (the destination square has to be empty)
 bool GameBoard::is_move_blocked(Piece *piece, int destination, bool is_eat = false)
 {
     switch (piece->get_piece_type())
@@ -426,7 +428,7 @@ bool GameBoard::is_check(Color color)
             std::vector<int> valid_moves = piece->get_eatable_moves();
             for (int move : valid_moves) {
                 if (move == king_position) {
-                    if (!is_move_blocked(piece, move, false)) {
+                    if (!is_move_blocked(piece, move, true)) {
                         return true;  // The king is in check
                     }
                 }
