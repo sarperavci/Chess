@@ -27,15 +27,20 @@ protected:
 
 public:
     Piece(int position, PieceType piece_type, Color color) : position(position), piece_type(piece_type), color(color) {}
-    virtual ~Piece() {} 
+    virtual ~Piece() {}
     virtual int get_position() = 0;
     virtual Color get_color() = 0;
     virtual PieceType get_piece_type() = 0;
 
     virtual void move(int destination) = 0;
-    
+
     virtual std::vector<int> get_valid_moves() = 0;
     virtual std::vector<int> get_eatable_moves() = 0;
+
+    // is_eat=True adds an additional check for the destination square, to see if it's occupied by an enemy piece
+    // is_eat=False is used for moves that don't involve capturing an enemy piece (the destination square has to be empty)
+    virtual bool is_move_blocked(int destination, bool is_eat, Piece **board) = 0;
+
     bool is_valid_move(int destination);
     bool is_valid_eat(int destination);
 

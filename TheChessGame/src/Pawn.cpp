@@ -91,7 +91,41 @@ std::vector<int> Pawn::get_eatable_moves()
 
     return eatable_moves;
 }
+bool Pawn::is_move_blocked(int destination, bool is_eat, Piece **board)
+{
+    int position = get_position();
+    Color color = get_color();
+    int direction = (color == Color::WHITE) ? 1 : -1;
 
-bool Pawn::get_has_moved() const {
+    // Check if the move is a forward move
+    if (!is_eat)
+    {
+        if (destination == position + 8 * direction)
+        {
+            return board[destination] != nullptr;
+        }
+        if ((position / 8 == 1 && color == Color::WHITE) || (position / 8 == 6 && color == Color::BLACK))
+        {
+            if (destination == position + 16 * direction)
+            {
+                return board[position + 8 * direction] != nullptr || board[destination] != nullptr;
+            }
+        }
+    }
+    else
+    {
+        // Check if the move is a diagonal capture
+        if ((destination == position + 7 * direction && position % 8 != 0) ||
+            (destination == position + 9 * direction && position % 8 != 7))
+        {
+            return board[destination] == nullptr || board[destination]->get_color() == color;
+        }
+    }
+
+    // If none of the above conditions are met, the move is invalid for a pawn
+    return true;
+}
+bool Pawn::get_has_moved() const
+{
     return has_moved;
 }

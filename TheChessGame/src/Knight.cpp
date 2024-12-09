@@ -90,70 +90,16 @@ std::vector<int> Knight::get_valid_moves()
     return valid_moves;
 }
 
+// The knight has no special moves for eating, so we can just return the valid moves
 std::vector<int> Knight::get_eatable_moves()
 {
-    std::vector<int> eatable_moves;
+    return get_valid_moves();
+}
 
-    int directions[] = {-10, 6, -6, 10, -17, 17, -15, 15};    // index change of L moves. 
-    int new_position;
+bool Knight::is_move_blocked(int destination, bool is_eat, Piece **board)
+{
+    Piece *dest_piece = board[destination];
 
-    for (int direction : directions) {
-        new_position = position + direction; 
-
-        if (new_position < 0 || new_position > 63){
-            continue;
-        }
-
-        if(direction == -6){  
-            if(new_position / 8 == position / 8){  
-                continue;
-            }
-        }
-
-        if(direction == 6){  
-            if(new_position / 8 == position / 8){  
-                continue;
-            }
-        }
-
-        if(direction == -10){  
-            if((new_position / 8) - (position / 8) == -2){  
-                continue;
-            }  
-        }
-
-        if(direction == 10){  
-            if((new_position / 8) - (position / 8) == 2){  
-                continue;
-            }
-        }
-
-        if(direction == -17){ 
-            if((new_position / 8) - (position / 8) != -2){ 
-                continue;
-            }
-        }
-
-        if(direction == 17){   
-            if((new_position / 8) - (position / 8) != 2){  
-                continue;
-            }
-        }
-
-        if(direction == -15){  
-            if((new_position / 8) - (position / 8) != -2){  
-                continue;
-            }
-        }
-
-        if(direction == 15){  
-            if((new_position / 8) - (position / 8) != 2){  
-                continue;
-            }
-        }
-
-        eatable_moves.push_back(new_position);
-    }   
-
-    return eatable_moves;
+    // Check if the destination is occupied by a piece of the same color or an enemy piece and it's not a capture move
+    return dest_piece != nullptr && (dest_piece->get_color() == get_color() || !is_eat);
 }
