@@ -22,7 +22,7 @@ void Pawn::move(int destination)
 {
     if (!has_moved)
         has_moved = true;
-    
+
     if (abs(destination - position) == 16)
         has_moved_two_squares = true;
 
@@ -119,11 +119,16 @@ bool Pawn::is_move_blocked(int destination, bool is_eat, Piece **board)
     }
     else
     {
-        // Check if the move is a diagonal capture
-        if ((destination == position + 7 * direction && position % 8 != 0) ||
-            (destination == position + 9 * direction && position % 8 != 7))
+        // Check diagonal captures
+        if (color == Color::WHITE)
         {
-            return board[destination] == nullptr || board[destination]->get_color() == color;
+            if ((destination == position + 7 && position % 8 != 0) || (destination == position + 9 && position % 8 != 7))
+                return !board[destination] || board[destination]->get_color() == color;
+        }
+        else
+        {
+            if ((destination == position - 7 && position % 8 != 7) || (destination == position - 9 && position % 8 != 0))
+                return !board[destination] || board[destination]->get_color() == color;
         }
     }
 
