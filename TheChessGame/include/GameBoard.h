@@ -25,9 +25,9 @@ public:
     void set_piece(int position, Piece *piece);
     void set_piece(int row, int col, Piece *piece);
 
-    void move_piece(Piece *piece, int destination);
-    void move_piece(Piece *piece, int row, int col);
-    void move_piece(int position, int destination);
+    int move_piece(Piece *piece, int destination);
+    int move_piece(Piece *piece, int row, int col);
+    int move_piece(int position, int destination);
 
     void remove_piece(int position);
     void remove_piece(int row, int col);
@@ -37,6 +37,16 @@ public:
     void refresh_board();
 
     bool is_check(Color color);
+
+    // void check_pawn_promotion(int position, Piece* piece);
+    bool is_pawn_promotion(int position, Piece *piece);
+    void promote_pawn(int position, Piece *piece, PieceType new_type);
+
+    bool is_en_passant(int position, Piece *piece, int dest);
+    void perform_en_passant(int position, Piece *piece, int dest);
+
+    bool can_castle(int position, Piece *piece, int dest);
+    void perform_castling(int position, Piece *piece, int dest);
 
     void print_board(); // For debugging purposes
 };

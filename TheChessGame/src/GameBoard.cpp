@@ -18,8 +18,8 @@ GameBoard::GameBoard()
     }
 }
 
-GameBoard::~GameBoard() {
-
+GameBoard::~GameBoard()
+{
 }
 
 Piece *GameBoard::get_piece(int position)
@@ -42,7 +42,7 @@ void GameBoard::set_piece(int row, int col, Piece *piece)
     set_piece(indexes2DToInt(row, col), piece);
 }
 
-void GameBoard::move_piece(Piece *piece, int destination)
+int GameBoard::move_piece(Piece *piece, int destination)
 {
     // Get the current position of the piece
     int position = piece->get_position();
@@ -74,23 +74,25 @@ void GameBoard::move_piece(Piece *piece, int destination)
                 board[position] = nullptr;
                 board[destination] = piece;
                 piece->move(destination);
+                return 1; // Move has been made
             }
         }
     }
+    return 0; // No move has been made
 }
 
-void GameBoard::move_piece(Piece *piece, int row, int col)
+int GameBoard::move_piece(Piece *piece, int row, int col)
 {
-    move_piece(piece, indexes2DToInt(row, col));
+    return move_piece(piece, indexes2DToInt(row, col));
 }
 
-void GameBoard::move_piece(int position, int destination)
+int GameBoard::move_piece(int position, int destination)
 {
     if (board[position] != nullptr)
     {
-
-        move_piece(get_piece(position), destination);
+        return move_piece(get_piece(position), destination);
     }
+    return 0;
 }
 
 void GameBoard::remove_piece(int position)
@@ -165,35 +167,216 @@ bool GameBoard::is_check(Color color)
     int king_position = -1;
 
     // Function to find the position of the king of a given color
-    for (int i = 0; i < 64; i++) {
+    for (int i = 0; i < 64; i++)
+    {
         Piece *piece = board[i];
-        if (piece != nullptr && piece->get_piece_type() == PieceType::KING && piece->get_color() == color) {
+        if (piece != nullptr && piece->get_piece_type() == PieceType::KING && piece->get_color() == color)
+        {
             king_position = i;
             break;
         }
     }
 
     // there is an error if the king cannot be found according to the given color
-    if (king_position == -1) {
+    if (king_position == -1)
+    {
         return false;
     }
 
     Color opponent_color = (color == Color::WHITE) ? Color::BLACK : Color::WHITE;
 
-    for (int i = 0; i < 64; i++) {
+    for (int i = 0; i < 64; i++)
+    {
         Piece *piece = board[i];
-        if (piece != nullptr && piece->get_color() == opponent_color) {
+        if (piece != nullptr && piece->get_color() == opponent_color)
+        {
             std::vector<int> valid_moves = piece->get_eatable_moves();
-            for (int move : valid_moves) {
-                if (move == king_position) {
-                    if (!is_move_blocked(piece, move, true)) {
-                        return true;  // The king is in check
+            for (int move : valid_moves)
+            {
+                if (move == king_position)
+                {
+                    if (!piece->is_move_blocked(move, true, board))
+                    {
+                        return true; // The king is in check
                     }
                 }
             }
         }
     }
-    return false;  // The king is not in check
+    return false; // The king is not in check
+}
+
+bool GameBoard::is_pawn_promotion(int position, Piece *piece)
+{
+    if (piece->get_piece_type() == PieceType::PAWN)
+    {
+        if ((piece->get_color() == Color::WHITE && position >= 56) || (piece->get_color() == Color::BLACK && position < 8))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+void GameBoard::promote_pawn(int position, Piece *piece, PieceType new_type)
+{
+    Color color = piece->get_color();
+    remove_piece(position);
+    switch (new_type)
+    {
+    case PieceType::QUEEN:
+        set_piece(position, new Queen(position, color));
+        break;
+    case PieceType::ROOK:
+        set_piece(position, new Rook(position, color));
+        break;
+    case PieceType::BISHOP:
+        set_piece(position, new Bishop(position, color));
+        break;
+    case PieceType::KNIGHT:
+        set_piece(position, new Knight(position, color));
+        break;
+    default:
+        break;
+    }
+}
+
+bool GameBoard::is_en_passant(int position, Piece *piece, int dest)
+{
+    if (piece->get_piece_type() != PieceType::PAWN)
+    {
+        return false;
+    }
+
+    int row = position / 8;
+    int col = position % 8;
+    int dest_row = dest / 8;
+    int dest_col = dest % 8;
+
+    // Check if the pawn is moving diagonally to an empty square
+    if (abs(dest_col - col) == 1 && dest_row - row == (piece->get_color() == Color::WHITE ? 1 : -1))
+    {
+        // Check if the destination square is empty
+        if (board[dest] == nullptr)
+        {
+            // Check if the adjacent square contains an opponent's pawn that just moved two squares forward
+            int adjacent_pos = position + (piece->get_color() == Color::WHITE ? 8 : -8);
+            Piece *adjacent_piece = board[adjacent_pos];
+            if (adjacent_piece != nullptr && adjacent_piece->get_piece_type() == PieceType::PAWN && adjacent_piece->get_color() != piece->get_color())
+            {
+                // Typecast the piece to a pawn
+                Pawn *adjacent_piece = dynamic_cast<Pawn *>(piece);
+
+                // Check if the adjacent pawn just moved two squares forward
+                if (adjacent_piece->get_has_moved_two_squares())
+                {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+void GameBoard::perform_en_passant(int position, Piece *piece, int dest)
+{
+    if (is_en_passant(position, piece, dest))
+    {
+        int capture_pos = position + (piece->get_color() == Color::WHITE ? 8 : -8);
+
+        // Remove the captured pawn
+        remove_piece(capture_pos);
+
+        // Move the pawn to the destination
+        board[position] = nullptr;
+        board[dest] = piece;
+        piece->move(dest);
+    }
+}
+
+bool GameBoard::can_castle(int position, Piece *piece, int dest)
+{
+    King *king = dynamic_cast<King *>(piece);
+    if (king != nullptr)
+    {
+        int col = position % 8;
+
+        if (col == 4)
+        {
+            Piece *rook = nullptr;
+            bool isShortCastling = false;
+            bool isLongCastling = false;
+
+            if (dest == position + 2)
+            {
+                isShortCastling = true;
+                rook = get_piece(position + 3);
+            }
+            else if (dest == position - 2)
+            {
+                isLongCastling = true;
+                rook = get_piece(position - 4);
+            }
+
+            if (isShortCastling || isLongCastling)
+            {
+                Rook *rookPiece = dynamic_cast<Rook *>(rook);
+                if (rookPiece != nullptr && !rookPiece->get_has_moved())
+                {
+                    int step = (isShortCastling) ? 1 : -1;
+                    for (int i = position + step; i != dest; i += step)
+                    {
+                        if (get_piece(i) != nullptr)
+                        {
+                            return false;
+                        }
+                    }
+                    if (is_check((king->get_color() == Color::WHITE) ? Color::BLACK : Color::WHITE) ||
+                        get_piece(position + (isShortCastling ? 1 : -1)) != nullptr ||
+                        get_piece(dest) != nullptr)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+void GameBoard::perform_castling(int position, Piece *piece, int dest)
+{
+    if (can_castle(position, piece, dest))
+    {
+        King *king = dynamic_cast<King *>(piece);
+        if (king != nullptr)
+        {
+            bool isShortCastling = (dest == position + 2);
+            bool isLongCastling = (dest == position - 2);
+
+            if (isShortCastling || isLongCastling)
+            {
+                int rook_position = position + (isShortCastling ? 3 : -4);
+                Rook *rookPiece = dynamic_cast<Rook *>(get_piece(rook_position));
+                if (rookPiece != nullptr && rookPiece->get_color() == piece->get_color())
+                {
+                    int rook_dest = position + (isShortCastling ? 1 : -1);
+
+                    // Move the king
+                    board[position] = nullptr;
+                    board[dest] = piece;
+                    piece->move(dest);
+
+                    // Move the rook
+                    board[rook_position] = nullptr;
+                    board[rook_dest] = rookPiece;
+                    rookPiece->move(rook_dest);
+                }
+            }
+        }
+    }
 }
 
 void GameBoard::print_board()
