@@ -45,6 +45,11 @@ int Game::handle_move(int src, int dest)
         return 0;
     }
 
+    if (game_board->get_piece(dest) != nullptr && game_board->get_piece(dest)->get_piece_type() == PieceType::KING)
+    {
+        return 0;
+    }
+
     Piece *piece = game_board->get_piece(src);
     // check if the piece is the same color as the current turn
     if (piece->get_color() != current_turn)
@@ -87,12 +92,6 @@ int Game::handle_move(int src, int dest)
     status = game_board->move_piece(src, dest);
     if (status == 0)
         return 0;
-
-    // if the pawn reaches the end of the board, promote it to a queen
-    if (game_board->is_pawn_promotion(dest, piece))
-    {
-        game_board->promote_pawn(dest, piece, PieceType::QUEEN);
-    }
 
     change_turn();
 
@@ -254,4 +253,9 @@ GameBoard *Game::get_game_board()
 Color Game::get_current_turn()
 {
     return current_turn;
+}
+
+void Game::set_current_turn(Color color)
+{
+    current_turn = color;
 }
