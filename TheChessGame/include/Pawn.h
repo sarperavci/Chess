@@ -7,6 +7,7 @@ class Pawn : public Piece
 {
 private:
     bool has_moved = false;
+    bool has_moved_two_squares = false;
 
 public:
     Pawn(int position, Color color);
@@ -18,6 +19,7 @@ public:
     std::vector<int> get_eatable_moves() override;
     bool is_move_blocked(int destination, bool is_eat, Piece **board) override;
     bool get_has_moved() const;
+    bool get_has_moved_two_squares() const;
 };
 
 #endif

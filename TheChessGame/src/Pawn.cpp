@@ -1,4 +1,5 @@
 #include "Pawn.h"
+#include <cstdlib>
 
 Pawn::Pawn(int position, Color color) : Piece(position, PieceType::PAWN, color) {}
 
@@ -21,6 +22,10 @@ void Pawn::move(int destination)
 {
     if (!has_moved)
         has_moved = true;
+    
+    if (abs(destination - position) == 16)
+        has_moved_two_squares = true;
+
     position = destination;
 }
 
@@ -128,4 +133,9 @@ bool Pawn::is_move_blocked(int destination, bool is_eat, Piece **board)
 bool Pawn::get_has_moved() const
 {
     return has_moved;
+}
+
+bool Pawn::get_has_moved_two_squares() const
+{
+    return has_moved_two_squares;
 }
