@@ -13,6 +13,8 @@ public:
     Game();
     ~Game();
     void change_turn();
+    
+    // Returns 0 if the move is invalid, 1 if the move is valid 
     int handle_move(int row, int col, int dest); 
     int handle_move(int src, int dest);
     void start_game();
@@ -25,6 +27,7 @@ public:
 
     GameBoard *get_game_board();
     Color get_current_turn();
+    void set_current_turn(Color color);
 
 };
 

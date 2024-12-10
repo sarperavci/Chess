@@ -1,3 +1,4 @@
+@@ -1,42 +0,0 @@
 # Define the compiler and flags
 CXX = g++
 CXXFLAGS = -Wall -std=c++11 -Iinclude
