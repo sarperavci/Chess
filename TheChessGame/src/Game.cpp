@@ -78,7 +78,7 @@ int Game::handle_move(int src, int dest)
         Pawn *pawn = dynamic_cast<Pawn *>(piece);
         if (pawn != nullptr)
         {
-            if (game_board->is_en_passant(src, piece, dest))
+            if (game_board->is_en_passant(piece, dest))
             {
                 game_board->perform_en_passant(src, piece, dest);
                 change_turn();

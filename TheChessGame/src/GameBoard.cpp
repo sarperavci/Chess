@@ -247,38 +247,22 @@ void GameBoard::promote_pawn(int position, Piece *piece, PieceType new_type)
     }
 }
 
-bool GameBoard::is_en_passant(int position, Piece *piece, int dest)
+bool GameBoard::is_en_passant(Piece *piece, int dest)
 {
     if (piece->get_piece_type() != PieceType::PAWN)
     {
         return false;
     }
+    
+    Color target_color = (piece->get_color() == Color::WHITE) ? Color::BLACK : Color::WHITE;
+    int target_way = (piece->get_color() == Color::WHITE) ? -8 : 8;
 
-    int row = position / 8;
-    int col = position % 8;
-    int dest_row = dest / 8;
-    int dest_col = dest % 8;
-
-    // Check if the pawn is moving diagonally to an empty square
-    if (abs(dest_col - col) == 1 && dest_row - row == (piece->get_color() == Color::WHITE ? 1 : -1))
+    std::vector<int> moves = piece->get_eatable_moves();
+    for (int move : moves)
     {
-        // Check if the destination square is empty
-        if (board[dest] == nullptr)
+        if (dest == move && board[dest] == nullptr && board[dest + target_way] != nullptr && board[dest + target_way]->get_color() == target_color && board[dest + target_way]->get_piece_type() == PieceType::PAWN && dynamic_cast<Pawn *>(board[dest + target_way])->get_has_moved_two_squares())
         {
-            // Check if the adjacent square contains an opponent's pawn that just moved two squares forward
-            int adjacent_pos = position + (piece->get_color() == Color::WHITE ? 1 : -1);
-            Piece *adjacent_piece = board[adjacent_pos];
-            if (adjacent_piece != nullptr && adjacent_piece->get_piece_type() == PieceType::PAWN && adjacent_piece->get_color() != piece->get_color())
-            {
-                // Typecast the piece to a pawn
-                Pawn *adjacent_piece = dynamic_cast<Pawn *>(piece);
-
-                // Check if the adjacent pawn just moved two squares forward
-                if (adjacent_piece->get_has_moved_two_squares())
-                {
-                    return true;
-                }
-            }
+            return true;
         }
     }
 
@@ -287,9 +271,9 @@ bool GameBoard::is_en_passant(int position, Piece *piece, int dest)
 
 void GameBoard::perform_en_passant(int position, Piece *piece, int dest)
 {
-    if (is_en_passant(position, piece, dest))
+    if (is_en_passant(piece, dest))
     {
-        int capture_pos = position + (piece->get_color() == Color::WHITE ? 1 : -1);
+        int capture_pos = dest + (piece->get_color() == Color::WHITE ? -8 : 8);
 
         // Remove the captured pawn
         remove_piece(capture_pos);

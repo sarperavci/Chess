@@ -42,7 +42,7 @@ public:
     bool is_pawn_promotion(int position, Piece *piece);
     void promote_pawn(int position, Piece *piece, PieceType new_type);
 
-    bool is_en_passant(int position, Piece *piece, int dest);
+    bool is_en_passant(Piece *piece, int dest);
     void perform_en_passant(int position, Piece *piece, int dest);
 
     bool can_castle(int position, Piece *piece, int dest);
