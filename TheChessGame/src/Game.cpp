@@ -87,7 +87,7 @@ int Game::handle_move(int src, int dest)
     status = game_board->move_piece(src, dest);
     if (status == 0)
         return 0;
-    
+
     // if the pawn reaches the end of the board, promote it to a queen
     if (game_board->is_pawn_promotion(dest, piece))
     {
@@ -118,9 +118,10 @@ void Game::start_game()
         handle_move(position, destination);
         game_board->print_board();
 
-        if (is_checkmate())
+        if (is_checkmate(current_turn))
         {
             cout << "Checkmate!" << endl;
+            cout << (current_turn == Color::WHITE ? "Black" : "White") << " wins!" << endl;
             break;
         }
 
@@ -148,10 +149,10 @@ bool Game::is_check()
     return game_board->is_check(current_turn);
 }
 
-bool Game::is_checkmate()
+bool Game::is_checkmate(Color current_color)
 {
-    Color currentColor = current_turn;
-    if (!game_board->is_check(currentColor))
+
+    if (!game_board->is_check(current_color))
     {
         return false; // king is not under threat
     }
@@ -160,7 +161,7 @@ bool Game::is_checkmate()
     for (int i = 0; i < 64; i++)
     {
         Piece *piece = game_board->get_piece(i);
-        if (piece != nullptr && piece->get_color() == currentColor)
+        if (piece != nullptr && piece->get_color() == current_color)
         {
             vector<int> valid_moves = piece->get_eatable_moves();
             for (int move : valid_moves)
@@ -174,7 +175,7 @@ bool Game::is_checkmate()
                 piece->set_position(move);
 
                 // is the king in danger in the possible move?
-                bool still_in_check = game_board->is_check(currentColor);
+                bool still_in_check = game_board->is_check(current_color);
 
                 // restore the board
                 game_board->set_piece(original_position, piece);

@@ -16,7 +16,7 @@ public:
     int handle_move(int row, int col, int dest); 
     int handle_move(int src, int dest);
     void start_game();
-    bool is_checkmate();
+    bool is_checkmate(Color current_color);
     bool is_stalemate();
     bool is_check();
     bool is_draw();

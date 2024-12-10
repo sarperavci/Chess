@@ -55,6 +55,12 @@ int GameBoard::move_piece(Piece *piece, int destination)
     bool is_valid_move = std::find(valid_moves.begin(), valid_moves.end(), destination) != valid_moves.end();
     bool is_valid_capture = std::find(eatable_moves.begin(), eatable_moves.end(), destination) != eatable_moves.end();
 
+    // Ensure that the destination is an empty square for a move
+    is_valid_move = is_valid_move && board[destination] == nullptr;
+
+    // Ensure that the destination is a valid capture
+    is_valid_capture = is_valid_capture && board[destination] != nullptr;
+
     if (is_valid_move || is_valid_capture)
     {
         // Check if the path is blocked for pieces that move along a path
@@ -381,18 +387,18 @@ void GameBoard::perform_castling(int position, Piece *piece, int dest)
 
 void GameBoard::print_board()
 {
-    const char *WHITE_PAWN = "\u265F";
-    const char *WHITE_KING = "\u265A";
-    const char *WHITE_QUEEN = "\u265B";
-    const char *WHITE_ROOK = "\u265C";
-    const char *WHITE_BISHOP = "\u265D";
-    const char *WHITE_KNIGHT = "\u265E";
-    const char *BLACK_KING = "\u2654";
-    const char *BLACK_QUEEN = "\u2655";
-    const char *BLACK_ROOK = "\u2656";
-    const char *BLACK_BISHOP = "\u2657";
-    const char *BLACK_KNIGHT = "\u2658";
-    const char *BLACK_PAWN = "\u2659";
+    const char *WHITE_PAWN = "\u2659";
+    const char *WHITE_KING = "\u2654";
+    const char *WHITE_QUEEN = "\u2655";
+    const char *WHITE_ROOK = "\u2656";
+    const char *WHITE_BISHOP = "\u2657";
+    const char *WHITE_KNIGHT = "\u2658";
+    const char *BLACK_KING = "\u265A";
+    const char *BLACK_QUEEN = "\u265B";
+    const char *BLACK_ROOK = "\u265C";
+    const char *BLACK_BISHOP = "\u265D";
+    const char *BLACK_KNIGHT = "\u265E";
+    const char *BLACK_PAWN = "\u265F";
     const char *EMPTY_SQUARE = "\u25A1";
 
     for (int row = 7; row >= 0; --row)
