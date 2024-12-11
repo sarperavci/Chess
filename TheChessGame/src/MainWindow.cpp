@@ -126,6 +126,9 @@ void MainWindow::handleSquareClick()
             src = -1; // Reset source if no piece is selected or if the piece is of the opposite color
             return;
         }
+        std::vector<int> valid_moves = piece->get_valid_moves();
+        std::vector<int> eatable_moves = piece->get_eatable_moves();
+        highlight_valid_moves(valid_moves, eatable_moves);
     }
     else
     {
@@ -158,9 +161,53 @@ void MainWindow::handleSquareClick()
             checkPawnPromotion();
         }
         src = -1; // Reset source square
+        resetBoardColors();
     }
 }
 
+void MainWindow::highlight_valid_moves(const std::vector<int>& valid_moves, const std::vector<int>& eatable_moves)
+{
+    // to make the board colorless after selecting pieces
+    for (auto square : squares)
+    {
+        square->setStyleSheet("background-color: none;");
+    }
+
+    // green for empty squares where it can go
+    for (int pos : valid_moves)
+    {
+        Piece *piece_at_dest = game->get_game_board()->get_piece(pos);
+        if (!piece_at_dest)
+        {
+            squares[pos]->setStyleSheet("background-color: green;");
+        }
+    }
+
+    // red for squares she can eat
+    for (int pos : eatable_moves)
+    {
+        Piece *piece_at_dest = game->get_game_board()->get_piece(pos);
+        if (piece_at_dest && piece_at_dest->get_color() != game->get_current_turn())
+        {
+            squares[pos]->setStyleSheet("background-color: red;"); //
+        }
+    }
+}
+
+void MainWindow::resetBoardColors()
+{
+    for (int i = 0; i < 64; ++i)
+    {
+        QPushButton *button = squares[i];
+        int row = 7 - (i / 8);
+        int col = i % 8;
+
+        if ((row + col) % 2 == 0)
+            button->setStyleSheet("background-color: #ADD8E6;");
+        else
+            button->setStyleSheet("background-color: #D3D3D3;");
+    }
+}
 
 void MainWindow::resetGame()
 {

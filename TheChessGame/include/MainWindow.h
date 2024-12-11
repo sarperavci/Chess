@@ -31,9 +31,11 @@ private:
 
     void initializeBoard();
     void updateBoard();
+    void resetBoardColors();
     void updateTurnLabel();
     void checkPawnPromotion();
     void showPromotionMenu(int row, int col, Color color);
+    void highlight_valid_moves(const std::vector<int>& valid_moves, const std::vector<int>& eatable_moves);
 };
 
 #endif // MAINWINDOW_H
