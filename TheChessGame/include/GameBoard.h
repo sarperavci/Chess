@@ -1,5 +1,6 @@
 #include "Piece.h"
-
+#include <vector>
+#include <string>
 #ifndef GAMEBOARD_H
 #define GAMEBOARD_H
 
@@ -17,6 +18,7 @@ private:
     Piece *board[64];
 
 public:
+    std::vector<std::string> move_history;
     GameBoard();
     ~GameBoard();
     Piece *get_piece(int position);
@@ -38,7 +40,6 @@ public:
 
     bool is_check(Color color);
 
-    // void check_pawn_promotion(int position, Piece* piece);
     bool is_pawn_promotion(int position, Piece *piece);
     void promote_pawn(int position, Piece *piece, PieceType new_type);
 
@@ -47,6 +48,13 @@ public:
 
     bool can_castle(int position, Piece *piece, int dest);
     void perform_castling(int position, Piece *piece, int dest);
+
+    std::string serialize_board();
+    void deserialize_board(std::string board_state);
+
+    void save_move();
+    bool can_rewind_move(size_t n);
+    void rewind_move(int n);
 
     void print_board(); // For debugging purposes
 };

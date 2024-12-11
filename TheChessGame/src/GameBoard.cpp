@@ -5,7 +5,7 @@
 #include "Bishop.h"
 #include "Queen.h"
 #include "King.h"
-
+#include <string>
 #include "utils.h"
 #include <algorithm>
 #include <iostream>
@@ -253,7 +253,7 @@ bool GameBoard::is_en_passant(Piece *piece, int dest)
     {
         return false;
     }
-    
+
     Color target_color = (piece->get_color() == Color::WHITE) ? Color::BLACK : Color::WHITE;
     int target_way = (piece->get_color() == Color::WHITE) ? -8 : 8;
 
@@ -366,6 +366,166 @@ void GameBoard::perform_castling(int position, Piece *piece, int dest)
                 }
             }
         }
+    }
+}
+
+std::string GameBoard::serialize_board()
+{
+    std::string board_str = "";
+
+    for (int i = 0; i < 64; i++)
+    {
+        if (board[i] == nullptr)
+        {
+            board_str += 'X';
+        }
+        else
+        {
+            Piece *piece = board[i];
+            if (piece->get_color() == Color::WHITE)
+            {
+                switch (piece->get_piece_type())
+                {
+                case PieceType::PAWN:
+                    board_str += 'P';
+                    break;
+                case PieceType::ROOK:
+                    board_str += 'R';
+                    break;
+                case PieceType::KNIGHT:
+                    board_str += 'N';
+                    break;
+                case PieceType::BISHOP:
+                    board_str += 'B';
+                    break;
+                case PieceType::QUEEN:
+                    board_str += 'Q';
+                    break;
+                case PieceType::KING:
+                    board_str += 'K';
+                    break;
+                default:
+                    break;
+                }
+            }
+            else if (piece->get_color() == Color::BLACK)
+            {
+                switch (piece->get_piece_type())
+                {
+                case PieceType::PAWN:
+                    board_str += 'p';
+                    break;
+                case PieceType::ROOK:
+                    board_str += 'r';
+                    break;
+                case PieceType::KNIGHT:
+                    board_str += 'n';
+                    break;
+                case PieceType::BISHOP:
+                    board_str += 'b';
+                    break;
+                case PieceType::QUEEN:
+                    board_str += 'q';
+                    break;
+                case PieceType::KING:
+                    board_str += 'k';
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+    }
+
+    return board_str;
+}
+
+// Always call clear_board() before calling this function to avoid memory leaks
+void GameBoard::deserialize_board(std::string board_str)
+{
+    // convert the string to a board state
+    for (int i = 0; i < 64; i++)
+    {
+        switch (board_str[i])
+        {
+        case 'P':
+            set_piece(i, new Pawn(i, Color::WHITE));
+            break;
+        case 'R':
+            set_piece(i, new Rook(i, Color::WHITE));
+            break;
+        case 'N':
+            set_piece(i, new Knight(i, Color::WHITE));
+            break;
+        case 'B':
+            set_piece(i, new Bishop(i, Color::WHITE));
+            break;
+        case 'Q':
+            set_piece(i, new Queen(i, Color::WHITE));
+            break;
+        case 'K':
+            set_piece(i, new King(i, Color::WHITE));
+            break;
+        case 'p':
+            set_piece(i, new Pawn(i, Color::BLACK));
+            break;
+        case 'r':
+            set_piece(i, new Rook(i, Color::BLACK));
+            break;
+        case 'n':
+            set_piece(i, new Knight(i, Color::BLACK));
+            break;
+        case 'b':
+            set_piece(i, new Bishop(i, Color::BLACK));
+            break;
+        case 'q':
+            set_piece(i, new Queen(i, Color::BLACK));
+            break;
+        case 'k':
+            set_piece(i, new King(i, Color::BLACK));
+            break;
+        default:
+            set_piece(i, nullptr);
+            break;
+        }
+    }
+}
+void GameBoard::save_move()
+{
+    std::string current_board_state = serialize_board();
+    if (move_history.empty() || move_history.back() != current_board_state)
+    {
+        move_history.push_back(current_board_state);
+    }
+}
+
+bool GameBoard::can_rewind_move(size_t n)
+{
+    return move_history.size() >= n;
+}
+
+void GameBoard::rewind_move(int n)
+{
+    if (!can_rewind_move(n))
+    {
+        std::cerr << "Cannot rewind " << n << " moves" << std::endl;
+        return;
+    }
+
+    // Remove the last n moves from the move history
+    move_history.erase(move_history.end() - n, move_history.end());
+
+    // Clear the board
+    clear_board();
+
+    // Deserialize the board state from the last remaining move in the history
+    if (!move_history.empty())
+    {
+        deserialize_board(move_history.back());
+    }
+    else
+    {
+        initiate_board();
     }
 }
 

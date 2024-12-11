@@ -40,22 +40,32 @@ int Game::handle_move(int row, int col, int dest)
 
 int Game::handle_move(int src, int dest)
 {
+    if (src == dest)
+    {
+        return 0;
+    }
+
     if (game_board->get_piece(src) == nullptr)
     {
         return 0;
     }
 
+    // You cannot eat a king
     if (game_board->get_piece(dest) != nullptr && game_board->get_piece(dest)->get_piece_type() == PieceType::KING)
     {
         return 0;
     }
 
     Piece *piece = game_board->get_piece(src);
+
     // check if the piece is the same color as the current turn
     if (piece->get_color() != current_turn)
     {
         return 0;
     }
+
+    // check if there's ongoing check
+    int status_code = 0;
 
     // check if the move is rook castling
     if (piece->get_piece_type() == PieceType::KING)
@@ -66,8 +76,9 @@ int Game::handle_move(int src, int dest)
             if (game_board->can_castle(src, piece, dest))
             {
                 game_board->perform_castling(src, piece, dest);
-                change_turn();
-                return 1;
+                //game_board->move_history.push_back(game_board->serialize_board());
+                game_board->save_move();
+                status_code = 1;
             }
         }
     }
@@ -81,21 +92,31 @@ int Game::handle_move(int src, int dest)
             if (game_board->is_en_passant(piece, dest))
             {
                 game_board->perform_en_passant(src, piece, dest);
-                change_turn();
-                return 1;
+                game_board->save_move();
+                status_code = 1;
             }
         }
     }
 
-    // handle the normal move & eat, but zero status means the move is invalid and the turn doesn't change
-    int status;
-    status = game_board->move_piece(src, dest);
-    if (status == 0)
-        return 0;
+    // If above special moves are not performed, move the piece normally
+    if (!status_code)
+    {
+        status_code = game_board->move_piece(src, dest);
+        game_board->save_move();
+    }
 
-    change_turn();
+    // check the danger of the king still exists, then undo the move
+    if (game_board->is_check(current_turn) && status_code)
+    {
+        game_board->rewind_move(1);
+        status_code = 0;
+    }
 
-    return 1;
+    // change the turn if the move is valid
+    if (status_code)
+        change_turn();
+
+    return status_code;
 }
 
 // Terminal based game for demo

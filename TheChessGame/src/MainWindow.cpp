@@ -21,8 +21,12 @@ MainWindow::MainWindow(QWidget *parent)
     resetButton = new QPushButton("Reset Game", this);
     connect(resetButton, &QPushButton::clicked, this, &MainWindow::resetGame);
 
+    rewindButton = new QPushButton("Rewind Move", this);
+    connect(rewindButton, &QPushButton::clicked, this, &MainWindow::rewind_move);
+
     rightMenuLayout->addWidget(turnLabel);
     rightMenuLayout->addWidget(resetButton);
+    rightMenuLayout->addWidget(rewindButton);
     rightMenu->setLayout(rightMenuLayout);
     rightMenu->setFixedWidth(200);
 
@@ -78,13 +82,27 @@ void MainWindow::updateBoard()
         {
             switch (piece->get_piece_type())
             {
-            case PieceType::PAWN: pieceImagePath = (piece->get_color() == Color::WHITE) ? ":/resources/images/white_pawn.svg" : ":/resources/images/black_pawn.svg"; break;
-            case PieceType::ROOK: pieceImagePath = (piece->get_color() == Color::WHITE) ? ":/resources/images/white_rook.svg" : ":/resources/images/black_rook.svg"; break;
-            case PieceType::KNIGHT: pieceImagePath = (piece->get_color() == Color::WHITE) ? ":/resources/images/white_knight.svg" : ":/resources/images/black_knight.svg"; break;
-            case PieceType::BISHOP: pieceImagePath = (piece->get_color() == Color::WHITE) ? ":/resources/images/white_bishop.svg" : ":/resources/images/black_bishop.svg"; break;
-            case PieceType::QUEEN: pieceImagePath = (piece->get_color() == Color::WHITE) ? ":/resources/images/white_queen.svg" : ":/resources/images/black_queen.svg"; break;
-            case PieceType::KING: pieceImagePath = (piece->get_color() == Color::WHITE) ? ":/resources/images/white_king.svg" : ":/resources/images/black_king.svg"; break;
-            default: pieceImagePath = ""; break;
+            case PieceType::PAWN:
+                pieceImagePath = (piece->get_color() == Color::WHITE) ? ":/resources/images/white_pawn.svg" : ":/resources/images/black_pawn.svg";
+                break;
+            case PieceType::ROOK:
+                pieceImagePath = (piece->get_color() == Color::WHITE) ? ":/resources/images/white_rook.svg" : ":/resources/images/black_rook.svg";
+                break;
+            case PieceType::KNIGHT:
+                pieceImagePath = (piece->get_color() == Color::WHITE) ? ":/resources/images/white_knight.svg" : ":/resources/images/black_knight.svg";
+                break;
+            case PieceType::BISHOP:
+                pieceImagePath = (piece->get_color() == Color::WHITE) ? ":/resources/images/white_bishop.svg" : ":/resources/images/black_bishop.svg";
+                break;
+            case PieceType::QUEEN:
+                pieceImagePath = (piece->get_color() == Color::WHITE) ? ":/resources/images/white_queen.svg" : ":/resources/images/black_queen.svg";
+                break;
+            case PieceType::KING:
+                pieceImagePath = (piece->get_color() == Color::WHITE) ? ":/resources/images/white_king.svg" : ":/resources/images/black_king.svg";
+                break;
+            default:
+                pieceImagePath = "";
+                break;
             }
         }
         else
@@ -165,7 +183,7 @@ void MainWindow::handleSquareClick()
     }
 }
 
-void MainWindow::highlight_valid_moves(const std::vector<int>& valid_moves, const std::vector<int>& eatable_moves)
+void MainWindow::highlight_valid_moves(const std::vector<int> &valid_moves, const std::vector<int> &eatable_moves)
 {
     // to make the board colorless after selecting pieces
     for (auto square : squares)
@@ -189,9 +207,29 @@ void MainWindow::highlight_valid_moves(const std::vector<int>& valid_moves, cons
         Piece *piece_at_dest = game->get_game_board()->get_piece(pos);
         if (piece_at_dest && piece_at_dest->get_color() != game->get_current_turn())
         {
-            squares[pos]->setStyleSheet("background-color: red;"); //
+            squares[pos]->setStyleSheet("background-color: red;");
         }
     }
+}
+
+void MainWindow::rewind_move()
+{
+    resetBoardColors();
+    
+    // If there is no move to rewind, reset the board
+    if (!game->get_game_board()->can_rewind_move(1) || game->get_game_board()->move_history.size() == 0)
+    {
+        game->get_game_board()->clear_board();
+        game->get_game_board()->initiate_board();
+        game->set_current_turn(Color::WHITE);
+        return;
+    }
+
+    game->get_game_board()->rewind_move(1);
+    game->set_current_turn(game->get_current_turn() == Color::WHITE ? Color::BLACK : Color::WHITE);
+
+    updateBoard();
+    updateTurnLabel();
 }
 
 void MainWindow::resetBoardColors()
@@ -212,6 +250,7 @@ void MainWindow::resetBoardColors()
 void MainWindow::resetGame()
 {
     game->get_game_board()->initiate_board();
+    game->get_game_board()->move_history.clear();
     game->set_current_turn(Color::WHITE);
     updateBoard();
     updateTurnLabel();
@@ -250,7 +289,7 @@ void MainWindow::showPromotionMenu(int row, int col, Color color)
 {
     QString colorStr = (color == Color::WHITE) ? "white" : "black";
     int position = row * 8 + col;
-    
+
     QDialog dialog(this);
     QHBoxLayout layout(&dialog);
 
@@ -268,10 +307,14 @@ void MainWindow::showPromotionMenu(int row, int col, Color color)
     knightButton->setIcon(QIcon(QString(":/resources/images/%1_knight.svg").arg(colorStr)));
     knightButton->setIconSize(QSize(80, 80));
 
-    connect(queenButton, &QPushButton::clicked, [=, &dialog]() { handlePromotion(position, PieceType::QUEEN); dialog.accept(); });
-    connect(rookButton, &QPushButton::clicked, [=, &dialog]() { handlePromotion(position, PieceType::ROOK); dialog.accept(); });
-    connect(bishopButton, &QPushButton::clicked, [=, &dialog]() { handlePromotion(position, PieceType::BISHOP); dialog.accept(); });
-    connect(knightButton, &QPushButton::clicked, [=, &dialog]() { handlePromotion(position, PieceType::KNIGHT); dialog.accept(); });
+    connect(queenButton, &QPushButton::clicked, [=, &dialog]()
+            { handlePromotion(position, PieceType::QUEEN); dialog.accept(); });
+    connect(rookButton, &QPushButton::clicked, [=, &dialog]()
+            { handlePromotion(position, PieceType::ROOK); dialog.accept(); });
+    connect(bishopButton, &QPushButton::clicked, [=, &dialog]()
+            { handlePromotion(position, PieceType::BISHOP); dialog.accept(); });
+    connect(knightButton, &QPushButton::clicked, [=, &dialog]()
+            { handlePromotion(position, PieceType::KNIGHT); dialog.accept(); });
 
     layout.addWidget(queenButton);
     layout.addWidget(rookButton);
@@ -286,5 +329,24 @@ void MainWindow::handlePromotion(int position, PieceType pieceType)
 {
     GameBoard *gameBoard = game->get_game_board();
     gameBoard->promote_pawn(position, gameBoard->get_piece(position), pieceType);
+    gameBoard->move_history.pop_back();
+    gameBoard->save_move();
+
+    if (game->is_checkmate(game->get_current_turn()))
+    {
+        QMessageBox::information(this, "Game Over", "Checkmate!");
+    }
+    else if (game->is_stalemate())
+    {
+        QMessageBox::information(this, "Game Over", "Stalemate!");
+    }
+    else if (game->is_draw())
+    {
+        QMessageBox::information(this, "Game Over", "Draw!");
+    }
+    else if (game->is_check())
+    {
+        QMessageBox::information(this, "Check", "Check!");
+    }
     updateBoard();
 }

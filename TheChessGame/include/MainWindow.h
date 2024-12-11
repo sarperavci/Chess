@@ -28,6 +28,7 @@ private:
     QVector<QPushButton *> squares;
     QLabel *turnLabel;
     QPushButton *resetButton;
+    QPushButton *rewindButton;
 
     void initializeBoard();
     void updateBoard();
@@ -36,6 +37,7 @@ private:
     void checkPawnPromotion();
     void showPromotionMenu(int row, int col, Color color);
     void highlight_valid_moves(const std::vector<int>& valid_moves, const std::vector<int>& eatable_moves);
+    void rewind_move();
 };
 
 #endif // MAINWINDOW_H
