@@ -52,6 +52,11 @@ void MainWindow::initializeBoard()
 
         int row = 7 - (i / 8);
         int col = i % 8;
+        if ((row + col) % 2 == 0)
+            button->setStyleSheet("background-color: #ADD8E6;");
+        else
+            button->setStyleSheet("background-color: #D3D3D3;");
+
         boardLayout->addWidget(button, row, col);
     }
 
@@ -155,6 +160,7 @@ void MainWindow::handleSquareClick()
         src = -1; // Reset source square
     }
 }
+
 
 void MainWindow::resetGame()
 {
