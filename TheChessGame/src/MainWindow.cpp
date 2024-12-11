@@ -201,7 +201,7 @@ void MainWindow::highlight_valid_moves(const std::vector<int> &valid_moves, cons
         }
     }
 
-    // red for squares she can eat
+    // red for squares that can be eaten
     for (int pos : eatable_moves)
     {
         Piece *piece_at_dest = game->get_game_board()->get_piece(pos);
