@@ -14,9 +14,9 @@ MainWindow::MainWindow(QWidget *parent)
     QWidget *rightMenu = new QWidget(this);
     QVBoxLayout *rightMenuLayout = new QVBoxLayout(rightMenu);
 
-    color1 = "background-color: #ADD8E6;";
-    color2 = "background-color: #D3D3D3;";
-
+    this->color1 = "#ADD8E6";
+    this->color2 = "#D3D3D3";
+    
     boardLayout = new QGridLayout();
     game->get_game_board()->initiate_board();
     initializeBoard();
@@ -57,6 +57,7 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(centralWidget);
 
     updateTurnLabel();
+    resetBoardColors();
 }
 
 MainWindow::~MainWindow()
@@ -315,7 +316,6 @@ void MainWindow::resetBoardColors()
         QPushButton *button = squares[i];
         int row = 7 - (i / 8);
         int col = i % 8;
-
         if ((row + col) % 2 == 0)
             button->setStyleSheet("background-color: " + color1 + ";");
         else
