@@ -14,9 +14,9 @@ MainWindow::MainWindow(QWidget *parent)
     QWidget *rightMenu = new QWidget(this);
     QVBoxLayout *rightMenuLayout = new QVBoxLayout(rightMenu);
 
-    this->color1 = "#ADD8E6";
-    this->color2 = "#D3D3D3";
-    
+    color1 = "background-color: #ADD8E6;";
+    color2 = "background-color: #D3D3D3;";
+
     boardLayout = new QGridLayout();
     game->get_game_board()->initiate_board();
     initializeBoard();
@@ -57,7 +57,6 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(centralWidget);
 
     updateTurnLabel();
-    resetBoardColors();
 }
 
 MainWindow::~MainWindow()
@@ -86,6 +85,9 @@ void MainWindow::changeColor()
         setColorScheme("#D2B48C", "#D3D3D3");
     } else if (selectedColors == "Blue - Yellow") {
         setColorScheme("#ADD8E6", "#FFFF99");
+    }
+    else{
+        setColorScheme("#ADD8E6", "#D3D3D3");
     }
 }
 
@@ -311,11 +313,18 @@ void MainWindow::rewind_move()
 
 void MainWindow::resetBoardColors()
 {
+    if (!color1.startsWith("#") || !color2.startsWith("#"))
+    {
+        color1 = "#ADD8E6";
+        color2 = "#D3D3D3";
+    }
+
     for (int i = 0; i < 64; ++i)
     {
         QPushButton *button = squares[i];
         int row = 7 - (i / 8);
         int col = i % 8;
+
         if ((row + col) % 2 == 0)
             button->setStyleSheet("background-color: " + color1 + ";");
         else
