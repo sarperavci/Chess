@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QDialog>
 #include <QHBoxLayout>
+#include <QComboBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), game(new Game())
@@ -12,6 +13,9 @@ MainWindow::MainWindow(QWidget *parent)
     QWidget *centralWidget = new QWidget(this);
     QWidget *rightMenu = new QWidget(this);
     QVBoxLayout *rightMenuLayout = new QVBoxLayout(rightMenu);
+
+    color1 = "background-color: #ADD8E6;";
+    color2 = "background-color: #D3D3D3;";
 
     boardLayout = new QGridLayout();
     game->get_game_board()->initiate_board();
@@ -24,9 +28,24 @@ MainWindow::MainWindow(QWidget *parent)
     rewindButton = new QPushButton("Rewind Move", this);
     connect(rewindButton, &QPushButton::clicked, this, &MainWindow::rewind_move);
 
+    changeButton = new QPushButton("Change Color", this);
+    connect(changeButton, &QPushButton::clicked, this, &MainWindow::showColorDropdown);
+
+    colorComboBox = new QComboBox(this);
+    colorComboBox->addItem("Blue - Grey");
+    colorComboBox->addItem("Yellow - Grey");
+    colorComboBox->addItem("Brown - Grey");
+    colorComboBox->addItem("Blue - Yellow");
+    colorComboBox->setVisible(false);
+
+    connect(colorComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &MainWindow::changeColor);
+
     rightMenuLayout->addWidget(turnLabel);
     rightMenuLayout->addWidget(resetButton);
     rightMenuLayout->addWidget(rewindButton);
+    rightMenuLayout->addWidget(changeButton);
+    rightMenuLayout->addWidget(colorComboBox);
+
     rightMenu->setLayout(rightMenuLayout);
     rightMenu->setFixedWidth(200);
 
@@ -45,6 +64,53 @@ MainWindow::~MainWindow()
     delete game;
 }
 
+void MainWindow::showColorDropdown()
+{
+    if (colorComboBox->isVisible()) {
+        colorComboBox->setVisible(false);
+    } else {
+        colorComboBox->setVisible(true);
+    }
+}
+
+void MainWindow::changeColor()
+{
+    QString selectedColors = colorComboBox->currentText();
+
+    if (selectedColors == "Blue - Grey") {
+        setColorScheme("#ADD8E6", "#D3D3D3");
+    } else if (selectedColors == "Yellow - Grey") {
+        setColorScheme("#FFFF99", "#D3D3D3");
+    } else if (selectedColors == "Brown - Grey") {
+        setColorScheme("#D2B48C", "#D3D3D3");
+    } else if (selectedColors == "Blue - Yellow") {
+        setColorScheme("#ADD8E6", "#FFFF99");
+    }
+}
+
+void MainWindow::setColorScheme(const QString &color1, const QString &color2)
+{
+    this->color1 = color1;
+    this->color2 = color2;
+
+    for (int i = 0; i < 64; ++i)
+    {
+        QPushButton *button = squares[i];
+
+        int row = 7 - (i / 8);
+        int col = i % 8;
+
+        if ((row + col) % 2 == 0)
+        {
+            button->setStyleSheet("background-color: " + color1 + ";");
+        }
+        else
+        {
+            button->setStyleSheet("background-color: " + color2 + ";");
+        }
+    }
+}
+
 void MainWindow::initializeBoard()
 {
     for (int i = 0; i < 64; ++i)
@@ -57,9 +123,9 @@ void MainWindow::initializeBoard()
         int row = 7 - (i / 8);
         int col = i % 8;
         if ((row + col) % 2 == 0)
-            button->setStyleSheet("background-color: #ADD8E6;");
+            button->setStyleSheet(this->color1);
         else
-            button->setStyleSheet("background-color: #D3D3D3;");
+            button->setStyleSheet(this->color2);
 
         boardLayout->addWidget(button, row, col);
     }
@@ -251,9 +317,9 @@ void MainWindow::resetBoardColors()
         int col = i % 8;
 
         if ((row + col) % 2 == 0)
-            button->setStyleSheet("background-color: #ADD8E6;");
+            button->setStyleSheet("background-color: " + color1 + ";");
         else
-            button->setStyleSheet("background-color: #D3D3D3;");
+            button->setStyleSheet("background-color: " + color2 + ";");
     }
 }
 

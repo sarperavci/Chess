@@ -7,6 +7,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QDialog>
+#include <QComboBox>
 #include "Game.h"
 
 class MainWindow : public QMainWindow
@@ -29,6 +30,10 @@ private:
     QLabel *turnLabel;
     QPushButton *resetButton;
     QPushButton *rewindButton;
+    QPushButton *changeButton;
+    QComboBox *colorComboBox;
+    QString color1 = "Blue";
+    QString color2 = "Grey";
 
     void initializeBoard();
     void updateBoard();
@@ -38,6 +43,9 @@ private:
     void showPromotionMenu(int row, int col, Color color);
     void highlight_valid_moves(const std::vector<int>& valid_moves, const std::vector<int>& eatable_moves);
     void rewind_move();
+    void showColorDropdown();
+    void changeColor();
+    void setColorScheme(const QString &color1, const QString &color2);
 };
 
 #endif // MAINWINDOW_H
