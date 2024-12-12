@@ -205,6 +205,12 @@ void MainWindow::highlight_valid_moves(const std::vector<int> &valid_moves, cons
         square->setStyleSheet("background-color: none;");
     }
 
+    // red for squares that can be eaten
+    for (int pos : eatable_moves)
+    {
+        squares[pos]->setStyleSheet("background-color: red;");
+    }
+
     // green for empty squares where it can go
     for (int pos : valid_moves)
     {
@@ -213,12 +219,6 @@ void MainWindow::highlight_valid_moves(const std::vector<int> &valid_moves, cons
         {
             squares[pos]->setStyleSheet("background-color: green;");
         }
-    }
-
-    // red for squares that can be eaten
-    for (int pos : eatable_moves)
-    {
-        squares[pos]->setStyleSheet("background-color: red;");
     }
 }
 
