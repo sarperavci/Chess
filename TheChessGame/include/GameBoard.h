@@ -40,7 +40,6 @@ public:
 
     void initiate_board();
     void clear_board();
-    void refresh_board();
 
     bool is_check(Color color);
 

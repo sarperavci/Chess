@@ -80,12 +80,6 @@ void Game::start_game()
             break;
         }
 
-        if (is_draw())
-        {
-            cout << "Draw!" << endl;
-            break;
-        }
-
         if (is_check())
         {
             cout << "Check!" << endl;
@@ -106,39 +100,39 @@ bool Game::is_checkmate(Color current_color)
         return false; // king is not under threat
     }
 
-    // player's all pieces are checked
+    // serialize the current state of the board
+    std::string curr_state = game_board->serialize_board();
+
+    // create a virtual board to not change the actual board
+    GameBoard *virtual_board = new GameBoard();
+    virtual_board->deserialize_board(curr_state);
+
+    // iterate through all the pieces on the board
     for (int i = 0; i < 64; i++)
     {
-        Piece *piece = game_board->get_piece(i);
+        Piece *piece = virtual_board->get_piece(i);
         if (piece != nullptr && piece->get_color() == current_color)
         {
-            vector<int> valid_moves = piece->get_eatable_moves();
-            for (int move : valid_moves)
+            if (piece->get_valid_moves().size() == 0 && piece->get_eatable_moves().size() == 0)
             {
-                // backing up your current state and making moves
-                Piece *captured_piece = game_board->get_piece(move);
-                int original_position = piece->get_position();
-
-                game_board->set_piece(move, piece);
-                game_board->set_piece(original_position, nullptr);
-                piece->set_position(move);
-
-                // is the king in danger in the possible move?
-                bool still_in_check = game_board->is_check(current_color);
-
-                // restore the board
-                game_board->set_piece(original_position, piece);
-                game_board->set_piece(move, captured_piece);
-                piece->set_position(original_position);
-
-                if (!still_in_check)
-                {
-                    return false;
-                }
+                continue;
+            }
+            std::pair<std::vector<int>, std::vector<int>> valid_moves = virtual_board->get_valid_moves(i);
+            std::vector<int> final_valid_moves = valid_moves.first;
+            std::vector<int> final_eatable_moves = valid_moves.second;
+            if (final_valid_moves.empty() && final_eatable_moves.empty())
+            {
+                continue;
+            }
+            else
+            {
+                delete virtual_board;
+                return false;
             }
         }
     }
 
+    delete virtual_board;
     return true; // check mate
 }
 
@@ -149,46 +143,41 @@ bool Game::is_stalemate()
         return false;
     }
 
+        // serialize the current state of the board
+    std::string curr_state = game_board->serialize_board();
+
+    // create a virtual board to not change the actual board
+    GameBoard *virtual_board = new GameBoard();
+    virtual_board->deserialize_board(curr_state);
+
+    // iterate through all the pieces on the board
     for (int i = 0; i < 64; i++)
     {
-        Piece *piece = game_board->get_piece(i);
+        Piece *piece = virtual_board->get_piece(i);
         if (piece != nullptr && piece->get_color() == current_turn)
         {
-            std::vector<int> valid_moves = piece->get_eatable_moves();
-
-            // if the piece has a move it can make, there is no pat situation.
-            for (int move : valid_moves)
+            if (piece->get_valid_moves().size() == 0 && piece->get_eatable_moves().size() == 0)
             {
-                // backing up your current state and making moves
-                Piece *captured_piece = game_board->get_piece(move);
-                int original_position = piece->get_position();
-
-                game_board->set_piece(move, piece);
-                game_board->set_piece(original_position, nullptr);
-                piece->set_position(move);
-
-                if (!game_board->is_check(current_turn))
-                {
-                    game_board->set_piece(original_position, piece);
-                    game_board->set_piece(move, captured_piece);
-                    piece->set_position(original_position);
-                    return false;
-                }
-
-                // restore the board
-                game_board->set_piece(original_position, piece);
-                game_board->set_piece(move, captured_piece);
-                piece->set_position(original_position);
+                continue;
+            }
+            std::pair<std::vector<int>, std::vector<int>> valid_moves = virtual_board->get_valid_moves(i);
+            std::vector<int> final_valid_moves = valid_moves.first;
+            std::vector<int> final_eatable_moves = valid_moves.second;
+            if (final_valid_moves.empty() && final_eatable_moves.empty())
+            {
+                continue;
+            }
+            else
+            {
+                delete virtual_board;
+                return false;
             }
         }
     }
 
-    return true; // stalemate
-}
 
-bool Game::is_draw()
-{
-    return false;
+    delete virtual_board;
+    return true; 
 }
 
 void Game::update_game_status()

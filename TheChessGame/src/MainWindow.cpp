@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "EndGameDialog.h"
 #include <QSvgRenderer>
 #include <QPainter>
 #include <QVBoxLayout>
@@ -22,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent)
     initializeBoard();
 
     turnLabel = new QLabel(this);
+    turnLabel->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
+    turnLabel->setStyleSheet("font-size: 20px; font-weight: bold;");
     resetButton = new QPushButton("Reset Game", this);
     connect(resetButton, &QPushButton::clicked, this, &MainWindow::resetGame);
 
@@ -47,7 +50,7 @@ MainWindow::MainWindow(QWidget *parent)
     rightMenuLayout->addWidget(colorComboBox);
 
     rightMenu->setLayout(rightMenuLayout);
-    rightMenu->setFixedWidth(200);
+    rightMenu->setFixedWidth(250);
 
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addLayout(boardLayout);
@@ -55,6 +58,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     centralWidget->setLayout(mainLayout);
     setCentralWidget(centralWidget);
+
+    adjustSize();
+    setFixedSize(size());
 
     updateTurnLabel();
 }
@@ -66,9 +72,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::showColorDropdown()
 {
-    if (colorComboBox->isVisible()) {
+    if (colorComboBox->isVisible())
+    {
         colorComboBox->setVisible(false);
-    } else {
+    }
+    else
+    {
         colorComboBox->setVisible(true);
     }
 }
@@ -77,16 +86,24 @@ void MainWindow::changeColor()
 {
     QString selectedColors = colorComboBox->currentText();
 
-    if (selectedColors == "Blue - Grey") {
+    if (selectedColors == "Blue - Grey")
+    {
         setColorScheme("#ADD8E6", "#D3D3D3");
-    } else if (selectedColors == "Yellow - Grey") {
+    }
+    else if (selectedColors == "Yellow - Grey")
+    {
         setColorScheme("#FFFF99", "#D3D3D3");
-    } else if (selectedColors == "Brown - Grey") {
+    }
+    else if (selectedColors == "Brown - Grey")
+    {
         setColorScheme("#D2B48C", "#D3D3D3");
-    } else if (selectedColors == "Blue - Yellow") {
+    }
+    else if (selectedColors == "Blue - Yellow")
+    {
         setColorScheme("#ADD8E6", "#FFFF99");
     }
-    else{
+    else
+    {
         setColorScheme("#ADD8E6", "#D3D3D3");
     }
 }
@@ -237,18 +254,16 @@ void MainWindow::handleSquareClick()
         {
             updateBoard();
             updateTurnLabel();
+            resetBoardColors();
 
             if (game->is_checkmate(game->get_current_turn()))
             {
-                QMessageBox::information(this, "Game Over", "Checkmate!");
+                Color winner = game->get_current_turn() == Color::WHITE ? Color::BLACK : Color::WHITE;
+                MainWindow::end_game(winner);
             }
             else if (game->is_stalemate())
             {
-                QMessageBox::information(this, "Game Over", "Stalemate!");
-            }
-            else if (game->is_draw())
-            {
-                QMessageBox::information(this, "Game Over", "Draw!");
+                MainWindow::end_game();
             }
             else if (game->is_check())
             {
@@ -419,19 +434,33 @@ void MainWindow::handlePromotion(int position, PieceType pieceType)
 
     if (game->is_checkmate(game->get_current_turn()))
     {
-        QMessageBox::information(this, "Game Over", "Checkmate!");
+        Color winner = game->get_current_turn() == Color::WHITE ? Color::BLACK : Color::WHITE;
+        end_game(winner);
     }
     else if (game->is_stalemate())
     {
-        QMessageBox::information(this, "Game Over", "Stalemate!");
-    }
-    else if (game->is_draw())
-    {
-        QMessageBox::information(this, "Game Over", "Draw!");
+        end_game();
     }
     else if (game->is_check())
     {
         QMessageBox::information(this, "Check", "Check!");
     }
     updateBoard();
+}
+
+void MainWindow::end_game(Color winner)
+{
+    QString winnerStr = (winner == Color::WHITE) ? "White" : "Black";
+    turnLabel->setText(QString("Winner: %1").arg(winnerStr));
+    EndGameDialog dialog(this);
+    dialog.setWinner(winnerStr);
+    dialog.exec();
+}
+
+void MainWindow::end_game()
+{
+    turnLabel->setText("Draw!");
+    EndGameDialog dialog(this);
+    dialog.setDraw();
+    dialog.exec();
 }

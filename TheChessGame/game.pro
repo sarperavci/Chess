@@ -34,7 +34,8 @@ SOURCES += src/Bishop.cpp \
            src/Piece.cpp \
            src/Queen.cpp \
            src/Rook.cpp \
-           src/utils.cpp
+           src/utils.cpp \
+           src/EndGameDialog.cpp
 
 # Get all .h files in the include directory
 HEADERS  += include/Bishop.h \
@@ -47,7 +48,8 @@ HEADERS  += include/Bishop.h \
             include/Piece.h \
             include/Queen.h \
             include/Rook.h \
-            include/utils.h
+            include/utils.h \
+            include/EndGameDialog.h
 
 # Include the UI files if any
 FORMS +=

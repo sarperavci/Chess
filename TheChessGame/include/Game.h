@@ -21,7 +21,6 @@ public:
     bool is_checkmate(Color current_color);
     bool is_stalemate();
     bool is_check();
-    bool is_draw();
 
     void update_game_status();
 

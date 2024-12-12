@@ -46,6 +46,8 @@ private:
     void showColorDropdown();
     void changeColor();
     void setColorScheme(const QString &color1, const QString &color2);
+    void end_game(Color winner);
+    void end_game();
 };
 
 #endif // MAINWINDOW_H
