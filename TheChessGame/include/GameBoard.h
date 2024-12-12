@@ -24,6 +24,9 @@ public:
     Piece *get_piece(int position);
     Piece *get_piece(int row, int col);
 
+    Piece **get_board();
+    std::pair<std::vector<int>, std::vector<int>> get_valid_moves(int position);
+
     void set_piece(int position, Piece *piece);
     void set_piece(int row, int col, Piece *piece);
 
@@ -31,6 +34,7 @@ public:
     int move_piece(Piece *piece, int row, int col);
     int move_piece(int position, int destination);
 
+    int handle_move(int src, int dest);
     void remove_piece(int position);
     void remove_piece(int row, int col);
 

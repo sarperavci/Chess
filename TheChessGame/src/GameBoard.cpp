@@ -42,6 +42,175 @@ void GameBoard::set_piece(int row, int col, Piece *piece)
     set_piece(indexes2DToInt(row, col), piece);
 }
 
+// Get all possible moves for a piece, including moves that capture an opponent's piece, castling, en passant,
+// and the most important, all future moves will be checked
+// so you can safely use this function to get all valid moves
+std::pair<std::vector<int>, std::vector<int>> GameBoard::get_valid_moves(int position)
+{
+    std::vector<int> valid_moves;
+    std::vector<int> eatable_moves;
+    Piece *piece = get_piece(position);
+
+    if (!piece)
+        return std::make_pair(valid_moves, eatable_moves);
+    else
+    {
+        for (int pos : piece->get_valid_moves())
+        {
+            if (!piece->is_move_blocked(pos, false, board))
+            {
+                valid_moves.push_back(pos);
+            }
+        }
+
+        for (int pos : piece->get_eatable_moves())
+        {
+            if (!piece->is_move_blocked(pos, true, board))
+            {
+                eatable_moves.push_back(pos);
+            }
+        }
+    }
+
+    // check for castling
+    if (piece->get_piece_type() == PieceType::KING)
+    {
+        King *king = dynamic_cast<King *>(piece);
+        if (king != nullptr)
+        {
+            if (can_castle(position, piece, position + 2))
+            {
+                valid_moves.push_back(position + 2);
+            }
+            if (can_castle(position, piece, position - 2))
+            {
+                valid_moves.push_back(position - 2);
+            }
+        }
+    }
+
+    // Create a virtual board to check if a future move is valid
+    GameBoard *virtual_board = new GameBoard();
+    // Yes, I know this is not the best way to do it, but it works
+    // No slow down is noticeable
+    std::vector<int> final_valid_moves = {};
+    for (size_t n = 0; n < valid_moves.size(); n++)
+    {
+        virtual_board->clear_board();
+        std::string current_state = serialize_board();
+        virtual_board->deserialize_board(current_state);
+        int status = virtual_board->handle_move(position, valid_moves[n]);
+
+        if (status)
+        {
+            final_valid_moves.push_back(valid_moves[n]);
+        }
+    }
+
+    std::vector<int> final_eatable_moves = {};
+    for (size_t n = 0; n < eatable_moves.size(); n++)
+    {
+        virtual_board->clear_board();
+        std::string current_state = serialize_board();
+        virtual_board->deserialize_board(current_state);
+        int status = virtual_board->handle_move(position, eatable_moves[n]);
+
+        std::string new_state = virtual_board->serialize_board();
+
+        if (status)
+        {
+            final_eatable_moves.push_back(eatable_moves[n]);
+        }
+    }
+
+    delete virtual_board;
+
+    if (piece->get_piece_type() == PieceType::PAWN)
+    {
+        Pawn *pawn = dynamic_cast<Pawn *>(piece);
+        if (pawn != nullptr)
+        {
+            for (int dest : piece->get_eatable_moves())
+            {
+                if (is_en_passant(piece, dest))
+                {
+                    final_eatable_moves.push_back(dest);
+                }
+            }
+        }
+    }
+
+    return std::make_pair(final_valid_moves, final_eatable_moves);
+}
+int GameBoard::handle_move(int src, int dest)
+{
+    if (src == dest)
+    {
+        return 0;
+    }
+
+    if (get_piece(src) == nullptr)
+    {
+        return 0;
+    }
+
+    // You cannot eat a king
+    if (get_piece(dest) != nullptr && get_piece(dest)->get_piece_type() == PieceType::KING)
+    {
+        return 0;
+    }
+
+    Piece *piece = get_piece(src);
+
+    // check if there's ongoing check
+    int status_code = 0;
+
+    // check if the move is rook castling
+    if (piece->get_piece_type() == PieceType::KING)
+    {
+        King *king = dynamic_cast<King *>(piece);
+        if (king != nullptr)
+        {
+            if (can_castle(src, piece, dest))
+            {
+                perform_castling(src, piece, dest);
+                save_move();
+                status_code = 1;
+            }
+        }
+    }
+
+    // check if the move is en passant
+    if (piece->get_piece_type() == PieceType::PAWN)
+    {
+        Pawn *pawn = dynamic_cast<Pawn *>(piece);
+        if (pawn != nullptr)
+        {
+            if (is_en_passant(piece, dest))
+            {
+                perform_en_passant(src, piece, dest);
+                save_move();
+                status_code = 1;
+            }
+        }
+    }
+
+    // If above special moves are not performed, move the piece normally
+    if (!status_code)
+    {
+        status_code = move_piece(src, dest);
+        save_move();
+    }
+
+    // check the danger of the king still exists, then undo the move
+    if (is_check(piece->get_color()) && status_code)
+    {
+        rewind_move(1);
+        status_code = 0;
+    }
+
+    return status_code;
+}
 int GameBoard::move_piece(Piece *piece, int destination)
 {
     // Get the current position of the piece
@@ -85,6 +254,11 @@ int GameBoard::move_piece(Piece *piece, int destination)
         }
     }
     return 0; // No move has been made
+}
+
+Piece **GameBoard::get_board()
+{
+    return board;
 }
 
 int GameBoard::move_piece(Piece *piece, int row, int col)
@@ -168,8 +342,10 @@ void GameBoard::clear_board()
     }
 }
 
+// Check if the king of a given color is in check
 bool GameBoard::is_check(Color color)
 {
+
     int king_position = -1;
 
     // Function to find the position of the king of a given color

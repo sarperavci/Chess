@@ -139,14 +139,24 @@ void MainWindow::handleSquareClick()
         int row = src / 8;
         int col = src % 8;
         Piece *piece = game->get_game_board()->get_piece(row, col);
+        if (piece == nullptr)
+        {
+            src = -1;
+            return;
+        }
+        std::pair<std::vector<int>, std::vector<int>> valid_moves = game->get_game_board()->get_valid_moves(index);
+        if (valid_moves.first.empty() && valid_moves.second.empty())
+        {
+            src = -1;
+            return;
+        }
         if (piece == nullptr || piece->get_color() != game->get_current_turn())
         {
             src = -1; // Reset source if no piece is selected or if the piece is of the opposite color
             return;
         }
-        std::vector<int> valid_moves = piece->get_valid_moves();
-        std::vector<int> eatable_moves = piece->get_eatable_moves();
-        highlight_valid_moves(valid_moves, eatable_moves);
+
+        highlight_valid_moves(valid_moves.first, valid_moves.second);
     }
     else
     {
@@ -185,6 +195,10 @@ void MainWindow::handleSquareClick()
 
 void MainWindow::highlight_valid_moves(const std::vector<int> &valid_moves, const std::vector<int> &eatable_moves)
 {
+    if (valid_moves.empty() && eatable_moves.empty())
+    {
+        return;
+    }
     // to make the board colorless after selecting pieces
     for (auto square : squares)
     {
@@ -204,18 +218,14 @@ void MainWindow::highlight_valid_moves(const std::vector<int> &valid_moves, cons
     // red for squares that can be eaten
     for (int pos : eatable_moves)
     {
-        Piece *piece_at_dest = game->get_game_board()->get_piece(pos);
-        if (piece_at_dest && piece_at_dest->get_color() != game->get_current_turn())
-        {
-            squares[pos]->setStyleSheet("background-color: red;");
-        }
+        squares[pos]->setStyleSheet("background-color: red;");
     }
 }
 
 void MainWindow::rewind_move()
 {
     resetBoardColors();
-    
+
     // If there is no move to rewind, reset the board
     if (!game->get_game_board()->can_rewind_move(1) || game->get_game_board()->move_history.size() == 0)
     {
