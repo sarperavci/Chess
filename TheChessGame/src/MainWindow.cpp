@@ -349,6 +349,7 @@ void MainWindow::resetBoardColors()
 
 void MainWindow::resetGame()
 {
+    resetBoardColors();
     game->get_game_board()->initiate_board();
     game->get_game_board()->move_history.clear();
     game->set_current_turn(Color::WHITE);
@@ -431,6 +432,8 @@ void MainWindow::handlePromotion(int position, PieceType pieceType)
     gameBoard->promote_pawn(position, gameBoard->get_piece(position), pieceType);
     gameBoard->move_history.pop_back();
     gameBoard->save_move();
+    
+    updateBoard();
 
     if (game->is_checkmate(game->get_current_turn()))
     {
@@ -445,7 +448,7 @@ void MainWindow::handlePromotion(int position, PieceType pieceType)
     {
         QMessageBox::information(this, "Check", "Check!");
     }
-    updateBoard();
+    
 }
 
 void MainWindow::end_game(Color winner)
