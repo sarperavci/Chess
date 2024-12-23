@@ -1,0 +1,5 @@
+<map id="GameBoard::get_valid_moves" name="GameBoard::get_valid_moves">
+<area shape="rect" id="node1" title="Get the valid moves for a piece at a specific position." alt="" coords="212,23,379,65"/>
+<area shape="rect" id="node2" href="$classGame.html#a5d3a79be2c9522c605d1350af4330ec1" title="Check if the current player is in checkmate." alt="" coords="5,5,164,32"/>
+<area shape="rect" id="node3" href="$classGame.html#ad64740ffea75c109d6b6ae8694f6c754" title="Check if the game is in stalemate." alt="" coords="8,56,161,83"/>
+</map>

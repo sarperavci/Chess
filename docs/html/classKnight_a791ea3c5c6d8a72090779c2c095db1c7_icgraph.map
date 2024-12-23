@@ -1,0 +1,4 @@
+<map id="Knight::get_color" name="Knight::get_color">
+<area shape="rect" id="node1" title="Get the color of the Knight." alt="" coords="237,5,369,32"/>
+<area shape="rect" id="node2" href="$classKnight.html#aade2a42b3f822f7f64aaf43f72d25048" title="Check if a move is blocked." alt="" coords="5,5,189,32"/>
+</map>

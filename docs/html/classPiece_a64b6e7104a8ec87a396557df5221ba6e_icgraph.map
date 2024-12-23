@@ -1,0 +1,7 @@
+<map id="Piece::get_position" name="Piece::get_position">
+<area shape="rect" id="node1" title="Get the current position of the piece." alt="" coords="697,38,843,65"/>
+<area shape="rect" id="node2" href="$classGameBoard.html#a5c69d4a45394879a9c8153f495132216" title="Move a piece to a new position." alt="" coords="463,38,649,65"/>
+<area shape="rect" id="node3" href="$classGameBoard.html#a3e4d526fdf08893c6275d442950bc0c8" title="Handle a move from one position to another." alt="" coords="220,13,415,39"/>
+<area shape="rect" id="node5" href="$classGameBoard.html#a81c15f507a08e10b135e4ad9ff229f19" title="Move a piece to a new row and column." alt="" coords="224,63,411,90"/>
+<area shape="rect" id="node4" href="$classGameBoard.html#a899ff2f8180acb2757b416cf1b2fe3fc" title="Get the valid moves for a piece at a specific position." alt="" coords="5,5,172,47"/>
+</map>

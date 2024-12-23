@@ -1,0 +1,7 @@
+<map id="GameBoard::initiate_board" name="GameBoard::initiate_board">
+<area shape="rect" id="node1" title="Initialize the board with the starting positions of the pieces." alt="" coords="708,23,861,65"/>
+<area shape="rect" id="node2" href="$classMainWindow.html#a996c5a2b6f77944776856f08ec30858d" title="Constructor for the MainWindow class." alt="" coords="463,5,660,32"/>
+<area shape="rect" id="node3" href="$classGameBoard.html#aebd02970c9f08896a51c5c4081726aab" title="Rewind the last n moves." alt="" coords="464,56,659,83"/>
+<area shape="rect" id="node4" href="$classGameBoard.html#a3e4d526fdf08893c6275d442950bc0c8" title="Handle a move from one position to another." alt="" coords="220,56,415,83"/>
+<area shape="rect" id="node5" href="$classGameBoard.html#a899ff2f8180acb2757b416cf1b2fe3fc" title="Get the valid moves for a piece at a specific position." alt="" coords="5,49,172,90"/>
+</map>

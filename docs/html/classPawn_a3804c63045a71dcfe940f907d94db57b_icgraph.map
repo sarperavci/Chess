@@ -1,0 +1,4 @@
+<map id="Pawn::get_color" name="Pawn::get_color">
+<area shape="rect" id="node1" title="Get the color of the Pawn." alt="" coords="229,5,353,32"/>
+<area shape="rect" id="node2" href="$classPawn.html#aaef4a2dd02ac944a293120705dcae144" title="Check if a move is blocked." alt="" coords="5,5,181,32"/>
+</map>

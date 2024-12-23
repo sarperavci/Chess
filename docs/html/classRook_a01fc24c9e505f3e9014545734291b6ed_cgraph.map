@@ -1,0 +1,5 @@
+<map id="Rook::is_move_blocked" name="Rook::is_move_blocked">
+<area shape="rect" id="node1" title="Check if a move is blocked." alt="" coords="5,31,180,57"/>
+<area shape="rect" id="node2" href="$classRook.html#a572c2e48591bb134c2cd0bfcdd00a8df" title="Get the color of the Rook." alt="" coords="238,5,361,32"/>
+<area shape="rect" id="node3" href="$classRook.html#a361c41640d21e740cf649447be6511aa" title="Get the current position of the Rook." alt="" coords="228,56,371,83"/>
+</map>

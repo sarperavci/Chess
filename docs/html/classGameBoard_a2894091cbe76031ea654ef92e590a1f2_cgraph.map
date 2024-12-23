@@ -1,0 +1,13 @@
+<map id="GameBoard::perform_castling" name="GameBoard::perform_castling">
+<area shape="rect" id="node1" title="Perform castling." alt="" coords="5,183,164,225"/>
+<area shape="rect" id="node2" href="$classGameBoard.html#a4dd243fafe1a1d3b62e85bfb65b859a1" title="Check if castling is possible." alt="" coords="212,115,388,141"/>
+<area shape="rect" id="node5" href="$classGameBoard.html#aa81591622e92a3264e0945cd818767f1" title="Get the piece at a specific position." alt="" coords="436,165,607,192"/>
+<area shape="rect" id="node7" href="$classPiece.html#aaf128403767d777af9968e100358ff7b" title="Get the color of the piece." alt="" coords="681,195,806,221"/>
+<area shape="rect" id="node11" href="$classPiece.html#a87a5ca556008646b2b53073eb3fabda1" title="Move the piece to a new position." alt="" coords="249,267,351,293"/>
+<area shape="rect" id="node3" href="$classKing.html#a9efe64ed95d69da7580cb888ef2de8bf" title="Get the color of the King." alt="" coords="462,115,581,141"/>
+<area shape="rect" id="node4" href="$classRook.html#ace83f6b42706c0f347bb79c2a60a96dd" title="Check if the Rook has moved." alt="" coords="438,13,605,40"/>
+<area shape="rect" id="node6" href="$classGameBoard.html#ada76802c36b10ea022445cc0e47b15de" title="Check if a player is in check." alt="" coords="440,64,603,91"/>
+<area shape="rect" id="node8" href="$classPiece.html#a53ed2b06b19f8c7ebd9201e41b5857a1" title="Get the valid eatable moves for the piece." alt="" coords="672,57,815,98"/>
+<area shape="rect" id="node9" href="$classPiece.html#ae72a03e5851c5b44871d34c8540e54fc" title="Get the type of the piece." alt="" coords="661,123,825,149"/>
+<area shape="rect" id="node10" href="$classPiece.html#a54fa15801cd1daa58f599c08af8403d2" title="Check if a move is blocked." alt="" coords="655,5,832,32"/>
+</map>

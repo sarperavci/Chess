@@ -1,0 +1,3 @@
+<map id="Game::handle_move" name="Game::handle_move">
+<area shape="rect" id="node1" title="Handle a move given the row and column of the source and the destination." alt="" coords="5,29,163,56"/>
+</map>

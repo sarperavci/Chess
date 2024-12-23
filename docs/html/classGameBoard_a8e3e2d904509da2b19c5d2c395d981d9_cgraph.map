@@ -1,0 +1,5 @@
+<map id="GameBoard::is_pawn_promotion" name="GameBoard::is_pawn_promotion">
+<area shape="rect" id="node1" title="Check if a pawn needs to be promoted." alt="" coords="5,23,165,65"/>
+<area shape="rect" id="node2" href="$classPiece.html#aaf128403767d777af9968e100358ff7b" title="Get the color of the piece." alt="" coords="233,5,358,32"/>
+<area shape="rect" id="node3" href="$classPiece.html#ae72a03e5851c5b44871d34c8540e54fc" title="Get the type of the piece." alt="" coords="213,56,377,83"/>
+</map>

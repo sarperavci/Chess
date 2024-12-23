@@ -1,0 +1,8 @@
+<map id="GameBoard::deserialize_board" name="GameBoard::deserialize_board">
+<area shape="rect" id="node1" title="Deserialize the board state from a string." alt="" coords="912,58,1091,99"/>
+<area shape="rect" id="node2" href="$classGameBoard.html#a899ff2f8180acb2757b416cf1b2fe3fc" title="Get the valid moves for a piece at a specific position." alt="" coords="212,58,379,99"/>
+<area shape="rect" id="node3" href="$classGame.html#a5d3a79be2c9522c605d1350af4330ec1" title="Check if the current player is in checkmate." alt="" coords="5,38,164,65"/>
+<area shape="rect" id="node4" href="$classGame.html#ad64740ffea75c109d6b6ae8694f6c754" title="Check if the game is in stalemate." alt="" coords="8,93,161,120"/>
+<area shape="rect" id="node5" href="$classGameBoard.html#aebd02970c9f08896a51c5c4081726aab" title="Rewind the last n moves." alt="" coords="669,40,864,66"/>
+<area shape="rect" id="node6" href="$classGameBoard.html#a3e4d526fdf08893c6275d442950bc0c8" title="Handle a move from one position to another." alt="" coords="427,40,621,66"/>
+</map>

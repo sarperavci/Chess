@@ -1,0 +1,8 @@
+<map id="GameBoard::remove_piece" name="GameBoard::remove_piece">
+<area shape="rect" id="node1" title="Remove a piece from a specific position." alt="" coords="715,71,913,98"/>
+<area shape="rect" id="node2" href="$classGameBoard.html#aba488e3ff9919419e83cbb0125cbf907" title="Perform an en passant move." alt="" coords="485,5,644,47"/>
+<area shape="rect" id="node5" href="$classGameBoard.html#a0b9f449927f650c3abe4bac444e92b22" title="Promote a pawn to a new piece type." alt="" coords="463,71,667,98"/>
+<area shape="rect" id="node6" href="$classGameBoard.html#ade9865bc8d93aad50578aa43a36c50ef" title="Remove a piece from a specific row and column." alt="" coords="465,122,664,149"/>
+<area shape="rect" id="node3" href="$classGameBoard.html#a3e4d526fdf08893c6275d442950bc0c8" title="Handle a move from one position to another." alt="" coords="220,13,415,39"/>
+<area shape="rect" id="node4" href="$classGameBoard.html#a899ff2f8180acb2757b416cf1b2fe3fc" title="Get the valid moves for a piece at a specific position." alt="" coords="5,5,172,47"/>
+</map>

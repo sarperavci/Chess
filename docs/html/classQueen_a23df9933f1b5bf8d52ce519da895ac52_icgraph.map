@@ -1,0 +1,4 @@
+<map id="Queen::get_position" name="Queen::get_position">
+<area shape="rect" id="node1" title="Get the current position of the Queen." alt="" coords="237,5,389,32"/>
+<area shape="rect" id="node2" href="$classQueen.html#a717936ec1a2d42ef625c698dd44b5f7e" title="Check if a move is blocked." alt="" coords="5,5,189,32"/>
+</map>

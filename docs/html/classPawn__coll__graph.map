@@ -1,0 +1,4 @@
+<map id="Pawn" name="Pawn">
+<area shape="rect" id="node1" title="Class representing a Pawn chess piece." alt="" coords="5,336,244,545"/>
+<area shape="rect" id="node2" href="$classPiece.html" title="Virtual class representing a chess piece." alt="" coords="37,5,212,288"/>
+</map>

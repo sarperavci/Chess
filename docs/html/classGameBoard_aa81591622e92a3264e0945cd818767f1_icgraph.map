@@ -1,0 +1,12 @@
+<map id="GameBoard::get_piece" name="GameBoard::get_piece">
+<area shape="rect" id="node1" title="Get the piece at a specific position." alt="" coords="1111,261,1281,288"/>
+<area shape="rect" id="node2" href="$classGameBoard.html#a4dd243fafe1a1d3b62e85bfb65b859a1" title="Check if castling is possible." alt="" coords="881,148,1057,175"/>
+<area shape="rect" id="node3" href="$classGameBoard.html#a899ff2f8180acb2757b416cf1b2fe3fc" title="Get the valid moves for a piece at a specific position." alt="" coords="212,86,379,127"/>
+<area shape="rect" id="node4" href="$classGame.html#a5d3a79be2c9522c605d1350af4330ec1" title="Check if the current player is in checkmate." alt="" coords="5,43,164,69"/>
+<area shape="rect" id="node5" href="$classGame.html#ad64740ffea75c109d6b6ae8694f6c754" title="Check if the game is in stalemate." alt="" coords="8,177,161,204"/>
+<area shape="rect" id="node6" href="$classGameBoard.html#a3e4d526fdf08893c6275d442950bc0c8" title="Handle a move from one position to another." alt="" coords="427,173,621,200"/>
+<area shape="rect" id="node7" href="$classGameBoard.html#a2894091cbe76031ea654ef92e590a1f2" title="Perform castling." alt="" coords="669,195,828,237"/>
+<area shape="rect" id="node8" href="$classGameBoard.html#abad8396fe61897d62b78bf3b227d9c4d" title="Get the piece at a specific row and column." alt="" coords="884,363,1055,389"/>
+<area shape="rect" id="node9" href="$classGameBoard.html#ad8b2915aaaa93910446f1a0172c2ff7f" title="Move a piece from one position to another." alt="" coords="876,413,1063,440"/>
+<area shape="rect" id="node10" href="$classGameBoard.html#a9642929dbd507b768a7aa48aa9a4c3f7" title="Print the board for debugging purposes." alt="" coords="879,464,1060,491"/>
+</map>

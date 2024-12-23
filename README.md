@@ -1,4 +1,4 @@
-# OOP Group8
+# OOP Group8 Chess Game
 
 This repo is for the OOP project of Group 8.
 
@@ -9,6 +9,16 @@ This repo is for the OOP project of Group 8.
 - Emre KARABURU
 - Okan Rıdvan GÜR
 - Emre ÖZKENT
+
+## UML Diagram && Doxygen Documentation
+
+You can find the UML diagram and Doxygen documentation as html in the `/docs` directory. You can also find their creation configurations as `Doxyfile` and `diagram.puml` in the `/TheChessGame` directory.
+
+![UML Diagram](docs/UML.png)
+
+## Pre-compiled Binaries
+
+You can get the pre-compiled binaries from the `/TheChessGame/build` directory. You can run the game by executing the `TheChessGame` binary (Linux) or `TheChessGame.exe` binary (Windows).
 
 ## Compilation Instructions
 

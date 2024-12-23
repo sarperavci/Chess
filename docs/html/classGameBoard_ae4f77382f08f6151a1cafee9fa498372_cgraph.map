@@ -1,0 +1,5 @@
+<map id="GameBoard::serialize_board" name="GameBoard::serialize_board">
+<area shape="rect" id="node1" title="Serialize the board state to a string." alt="" coords="5,23,168,65"/>
+<area shape="rect" id="node2" href="$classPiece.html#aaf128403767d777af9968e100358ff7b" title="Get the color of the piece." alt="" coords="235,5,361,32"/>
+<area shape="rect" id="node3" href="$classPiece.html#ae72a03e5851c5b44871d34c8540e54fc" title="Get the type of the piece." alt="" coords="216,56,380,83"/>
+</map>

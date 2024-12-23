@@ -1,0 +1,10 @@
+<map id="Piece::get_valid_moves" name="Piece::get_valid_moves">
+<area shape="rect" id="node1" title="Get the valid moves for the piece." alt="" coords="904,70,1080,97"/>
+<area shape="rect" id="node2" href="$classGameBoard.html#a899ff2f8180acb2757b416cf1b2fe3fc" title="Get the valid moves for a piece at a specific position." alt="" coords="212,41,379,83"/>
+<area shape="rect" id="node3" href="$classGame.html#a5d3a79be2c9522c605d1350af4330ec1" title="Check if the current player is in checkmate." alt="" coords="5,11,164,38"/>
+<area shape="rect" id="node4" href="$classGame.html#ad64740ffea75c109d6b6ae8694f6c754" title="Check if the game is in stalemate." alt="" coords="8,87,161,114"/>
+<area shape="rect" id="node5" href="$classPiece.html#a2fbf7e68209813cda2b07b2d081beea9" title="Check if a move is valid." alt="" coords="683,121,842,147"/>
+<area shape="rect" id="node6" href="$classGameBoard.html#a5c69d4a45394879a9c8153f495132216" title="Move a piece to a new position." alt="" coords="669,70,856,97"/>
+<area shape="rect" id="node7" href="$classGameBoard.html#a3e4d526fdf08893c6275d442950bc0c8" title="Handle a move from one position to another." alt="" coords="427,70,621,97"/>
+<area shape="rect" id="node8" href="$classGameBoard.html#a81c15f507a08e10b135e4ad9ff229f19" title="Move a piece to a new row and column." alt="" coords="431,121,617,147"/>
+</map>

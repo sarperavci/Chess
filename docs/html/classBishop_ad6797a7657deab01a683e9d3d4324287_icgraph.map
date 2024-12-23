@@ -1,0 +1,4 @@
+<map id="Bishop::get_color" name="Bishop::get_color">
+<area shape="rect" id="node1" title="Get the color of the Bishop." alt="" coords="240,5,375,32"/>
+<area shape="rect" id="node2" href="$classBishop.html#a2e0f23f85e9126bba634d11be827999c" title="Check if a move is blocked." alt="" coords="5,5,192,32"/>
+</map>

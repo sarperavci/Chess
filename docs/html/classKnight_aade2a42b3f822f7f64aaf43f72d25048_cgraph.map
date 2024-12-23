@@ -1,0 +1,5 @@
+<map id="Knight::is_move_blocked" name="Knight::is_move_blocked">
+<area shape="rect" id="node1" title="Check if a move is blocked." alt="" coords="5,31,189,57"/>
+<area shape="rect" id="node2" href="$classKnight.html#a791ea3c5c6d8a72090779c2c095db1c7" title="Get the color of the Knight." alt="" coords="237,5,369,32"/>
+<area shape="rect" id="node3" href="$classPiece.html#aaf128403767d777af9968e100358ff7b" title="Get the color of the piece." alt="" coords="241,56,366,83"/>
+</map>

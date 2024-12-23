@@ -1,0 +1,8 @@
+<map id="GameBoard::move_piece" name="GameBoard::move_piece">
+<area shape="rect" id="node1" title="Move a piece to a new position." alt="" coords="5,122,192,149"/>
+<area shape="rect" id="node2" href="$classPiece.html#a53ed2b06b19f8c7ebd9201e41b5857a1" title="Get the valid eatable moves for the piece." alt="" coords="257,5,400,47"/>
+<area shape="rect" id="node3" href="$classPiece.html#a64b6e7104a8ec87a396557df5221ba6e" title="Get the current position of the piece." alt="" coords="256,71,401,98"/>
+<area shape="rect" id="node4" href="$classPiece.html#af5c99e412c335ae438b1c5b68d4b7cd3" title="Get the valid moves for the piece." alt="" coords="241,122,417,149"/>
+<area shape="rect" id="node5" href="$classPiece.html#a54fa15801cd1daa58f599c08af8403d2" title="Check if a move is blocked." alt="" coords="240,173,417,199"/>
+<area shape="rect" id="node6" href="$classPiece.html#a87a5ca556008646b2b53073eb3fabda1" title="Move the piece to a new position." alt="" coords="277,223,380,250"/>
+</map>

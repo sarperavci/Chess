@@ -1,0 +1,10 @@
+<map id="GameBoard::move_piece" name="GameBoard::move_piece">
+<area shape="rect" id="node1" title="Move a piece to a new row and column." alt="" coords="5,97,192,123"/>
+<area shape="rect" id="node2" href="$utils_8h.html#ac86e82a0bf87b96231174523f913bf69" title="Convert 2D indexes (row, column) to a 1D index." alt="" coords="273,71,394,98"/>
+<area shape="rect" id="node3" href="$classGameBoard.html#a5c69d4a45394879a9c8153f495132216" title="Move a piece to a new position." alt="" coords="240,122,427,149"/>
+<area shape="rect" id="node4" href="$classPiece.html#a53ed2b06b19f8c7ebd9201e41b5857a1" title="Get the valid eatable moves for the piece." alt="" coords="492,5,635,47"/>
+<area shape="rect" id="node5" href="$classPiece.html#a64b6e7104a8ec87a396557df5221ba6e" title="Get the current position of the piece." alt="" coords="491,71,636,98"/>
+<area shape="rect" id="node6" href="$classPiece.html#af5c99e412c335ae438b1c5b68d4b7cd3" title="Get the valid moves for the piece." alt="" coords="475,122,651,149"/>
+<area shape="rect" id="node7" href="$classPiece.html#a54fa15801cd1daa58f599c08af8403d2" title="Check if a move is blocked." alt="" coords="475,173,652,199"/>
+<area shape="rect" id="node8" href="$classPiece.html#a87a5ca556008646b2b53073eb3fabda1" title="Move the piece to a new position." alt="" coords="512,223,615,250"/>
+</map>

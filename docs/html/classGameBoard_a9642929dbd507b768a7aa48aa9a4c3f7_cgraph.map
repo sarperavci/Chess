@@ -1,0 +1,6 @@
+<map id="GameBoard::print_board" name="GameBoard::print_board">
+<area shape="rect" id="node1" title="Print the board for debugging purposes." alt="" coords="5,56,187,83"/>
+<area shape="rect" id="node2" href="$classPiece.html#aaf128403767d777af9968e100358ff7b" title="Get the color of the piece." alt="" coords="257,5,383,32"/>
+<area shape="rect" id="node3" href="$classGameBoard.html#aa81591622e92a3264e0945cd818767f1" title="Get the piece at a specific position." alt="" coords="235,56,405,83"/>
+<area shape="rect" id="node4" href="$classPiece.html#ae72a03e5851c5b44871d34c8540e54fc" title="Get the type of the piece." alt="" coords="238,107,402,133"/>
+</map>

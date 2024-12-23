@@ -1,0 +1,9 @@
+<map id="Piece" name="Piece">
+<area shape="rect" id="node1" title="Virtual class representing a chess piece." alt="" coords="517,5,692,288"/>
+<area shape="rect" id="node2" href="$classBishop.html" title="Class representing a Bishop chess piece." alt="" coords="5,351,180,531"/>
+<area shape="rect" id="node3" href="$classKing.html" title="Class representing a King chess piece." alt="" coords="204,343,379,538"/>
+<area shape="rect" id="node4" href="$classKnight.html" title="Class representing a Knight chess piece." alt="" coords="403,351,577,531"/>
+<area shape="rect" id="node5" href="$classPawn.html" title="Class representing a Pawn chess piece." alt="" coords="601,336,840,545"/>
+<area shape="rect" id="node6" href="$classQueen.html" title="Class representing a Queen chess piece." alt="" coords="864,351,1039,531"/>
+<area shape="rect" id="node7" href="$classRook.html" title="Class representing a Rook chess piece." alt="" coords="1063,343,1237,538"/>
+</map>

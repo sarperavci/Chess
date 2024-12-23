@@ -1,0 +1,4 @@
+<map id="Queen::get_eatable_moves" name="Queen::get_eatable_moves">
+<area shape="rect" id="node1" title="Get the valid eatable moves for the Queen." alt="" coords="5,5,155,47"/>
+<area shape="rect" id="node2" href="$classQueen.html#a9e2a807dc0abd4c2c456093725650d79" title="Get the valid moves for the Queen." alt="" coords="203,13,385,39"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Bishop::is_move_blocked" name="Bishop::is_move_blocked">
+<area shape="rect" id="node1" title="Check if a move is blocked." alt="" coords="5,31,192,57"/>
+<area shape="rect" id="node2" href="$classBishop.html#ad6797a7657deab01a683e9d3d4324287" title="Get the color of the Bishop." alt="" coords="250,5,385,32"/>
+<area shape="rect" id="node3" href="$classBishop.html#aa6125c05f961fb699d09885085b8d633" title="Get the current position of the Bishop." alt="" coords="240,56,395,83"/>
+</map>

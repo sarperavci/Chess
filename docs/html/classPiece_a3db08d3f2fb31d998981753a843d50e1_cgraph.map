@@ -1,0 +1,4 @@
+<map id="Piece::is_valid_eat" name="Piece::is_valid_eat">
+<area shape="rect" id="node1" title="Check if an eat move is valid." alt="" coords="5,13,148,39"/>
+<area shape="rect" id="node2" href="$classPiece.html#a53ed2b06b19f8c7ebd9201e41b5857a1" title="Get the valid eatable moves for the piece." alt="" coords="196,5,339,47"/>
+</map>
