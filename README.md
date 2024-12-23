@@ -62,6 +62,22 @@ make[1]: Leaving directory '/app'
 -rwxr-xr-x 1 root root 17M Dec 14 20:12 build/TheChessGame.exe
 ```
 
+### Compile Statically for Linux via Docker Container
+
+You can also compile the project for Linux from Linux by using the `fishwaldo/qt-staticbuilds` Docker container. First, you need to have Docker installed on your system. Then, open a terminal in the project directory and run the following command:
+
+```bash
+docker run -it -v $(pwd):/app fishwaldo/qt-staticbuilds:5.12.4 bash -c "cd /app && rm -f .qmake.stash && /opt/Qt/5.12.4/bin/qmake && make clean && make && ls -lah build/TheChessGame"
+```
+
+Example output:
+
+```bash
+sarp@IdeaPad:~/Documents/GitHub/OOP_Group8/TheChessGame$ docker run -it -v $(pwd):/app fishwaldo/qt-staticbuilds:5.12.4 bash -c "cd /app && rm -f .qmake.stash && /opt/Qt/5.12.4/bin/qmake && make clean && make && ls -lah build/TheChessGame"
+[...]
+-rwxr-xr-x 1 root root 14M Dec 23 21:40 build/TheChessGame
+```
+
 ### Deployment with Dynamic Linking on Windows
 
 First, to create the project's build configuration:
