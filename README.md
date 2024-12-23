@@ -61,3 +61,33 @@ x86_64-w64-mingw32-g++ -c -pipe -fno-keep-inline-dllexport -O2 -Wall -W -Wextra 
 make[1]: Leaving directory '/app'
 -rwxr-xr-x 1 root root 17M Dec 14 20:12 build/TheChessGame.exe
 ```
+
+### Deployment with Dynamic Linking on Windows
+
+First, to create the project's build configuration:
+
+```powershell
+qmake game.pro
+```
+
+After, to be able to compile:
+
+```powershell
+mingw32-make
+```
+
+Now, it is necessary to transfer all dependencies to the directory where your .exe file is located
+using the `windeployqt` command. Assuming that Qt is installed in C:\Qt\6.8.0\mingw_64\bin,
+you should first navigate to that directory:
+
+```powershell
+cd C:\Qt\6.8.0\mingw_64\bin
+```
+
+Finally, let's assume that the project's .exe file is located at
+`C:\ProjectQt\OOP_Group8\TheChessGame\build\Desktop_Qt_6_8_0_MinGW_64_bit-Debug\build\TheChessGame.exe`
+You can copy the necessary dependencies with this command:
+
+```powershell
+"C:\Qt\6.8.0\mingw_64\bin\windeployqt.exe" "C:\ProjectQt\OOP_Group8\TheChessGame\build\Desktop_Qt_6_8_0_MinGW_64_bit-Debug\build\TheChessGame.exe"
+```
