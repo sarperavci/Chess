@@ -10,6 +10,12 @@ This repo is for the OOP project of Group 8.
 - Okan Rıdvan GÜR
 - Emre ÖZKENT
 
+## Demo Video
+
+You can watch the demo video of the game by clicking the image below:
+
+[![Demo Video](docs/video.png)](https://www.youtube.com/watch?v=vasLyqTEhRs)
+
 ## UML Diagram && Doxygen Documentation
 
 You can find the UML diagram and Doxygen documentation as html in the `/docs` directory. You can also find their creation configurations as `Doxyfile` and `diagram.puml` in the `/TheChessGame` directory.
