@@ -36,7 +36,7 @@ docker run -it -v $(pwd):/app syping/qt5-static-mingw bash -c "cd /app && export
 Example output:
 
 ```bash
-sarp@IdeaPad:~/Documents/GitHub/OOP_Group8/Chess$ docker run -it -v $(pwd):/app syping/qt5-static-mingw bash -c "cd /app && export QT_SELECT=qt5-x86_64-w64-mingw32 && qmake -qt=qt5-x86_64-w64-mingw32 && make clean && make && ls -lah build/Chess.exe"
+sarp@IdeaPad:~/Documents/GitHub/OOP_Group8/Chess$ docker run -it -v $(pwd):/app syping/qt5-static-mingw bash -c "cd /app && qmake -qt=qt5-x86_64-w64-mingw32 && make clean && make && ls -lah build/Chess.exe"
 Info: creating stash file /app/.qmake.stash
 make -f Makefile.Release clean
 make[1]: Entering directory '/app'
