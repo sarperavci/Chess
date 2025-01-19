@@ -2,9 +2,9 @@
 
 ## Demo Video
 
-You can watch the demo video of the game by clicking the image below:
+You can watch the demo video of the game:
 
-[![Demo Video](docs/video.png)](https://www.youtube.com/watch?v=vasLyqTEhRs)
+https://github.com/user-attachments/assets/379a467b-24b3-4bf4-b4e7-d20c980e0b20
 
 ## Pre-compiled Binaries
 
