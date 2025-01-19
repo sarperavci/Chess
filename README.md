@@ -2,7 +2,8 @@
 
 A modern, feature-rich chess implementation built with C++ and Qt, offering a polished gaming experience with an intuitive graphical interface.
 
-![Game Screenshot](docs/screenshot.png)
+
+![](https://github.com/user-attachments/assets/455cc454-1362-41fe-b8c2-a4ae525e00be)
 
 ## Features
 
