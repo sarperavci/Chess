@@ -1,4 +1,0 @@
-<map id="GameBoard::deserialize_board" name="GameBoard::deserialize_board">
-<area shape="rect" id="node1" title="Deserialize the board state from a string." alt="" coords="5,5,184,47"/>
-<area shape="rect" id="node2" href="$classGameBoard.html#aa02d8d95fee6bade7ca9470c9b728703" title="Set a piece at a specific position." alt="" coords="232,13,401,39"/>
-</map>

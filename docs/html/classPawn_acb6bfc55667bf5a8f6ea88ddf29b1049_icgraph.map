@@ -1,4 +1,0 @@
-<map id="Pawn::get_position" name="Pawn::get_position">
-<area shape="rect" id="node1" title="Get the current position of the Pawn." alt="" coords="229,5,373,32"/>
-<area shape="rect" id="node2" href="$classPawn.html#aaef4a2dd02ac944a293120705dcae144" title="Check if a move is blocked." alt="" coords="5,5,181,32"/>
-</map>

@@ -1,4 +1,0 @@
-<map id="Bishop::get_valid_moves" name="Bishop::get_valid_moves">
-<area shape="rect" id="node1" title="Get the valid moves for the Bishop." alt="" coords="204,13,389,39"/>
-<area shape="rect" id="node2" href="$classBishop.html#aa1016fdf4de2bd9df37faa49397b27d4" title="Get the valid eatable moves for the Bishop." alt="" coords="5,5,156,47"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="GameBoard::save_move" name="GameBoard::save_move">
-<area shape="rect" id="node1" title="Save the current move to the move history." alt="" coords="5,31,188,57"/>
-<area shape="rect" id="node2" href="$classGameBoard.html#ae4f77382f08f6151a1cafee9fa498372" title="Serialize the board state to a string." alt="" coords="236,23,399,65"/>
-<area shape="rect" id="node3" href="$classPiece.html#aaf128403767d777af9968e100358ff7b" title="Get the color of the piece." alt="" coords="466,5,591,32"/>
-<area shape="rect" id="node4" href="$classPiece.html#ae72a03e5851c5b44871d34c8540e54fc" title="Get the type of the piece." alt="" coords="447,56,611,83"/>
-</map>

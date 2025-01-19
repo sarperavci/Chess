@@ -1,9 +1,0 @@
-<map id="Piece::move" name="Piece::move">
-<area shape="rect" id="node1" title="Move the piece to a new position." alt="" coords="697,78,800,105"/>
-<area shape="rect" id="node2" href="$classGameBoard.html#a5c69d4a45394879a9c8153f495132216" title="Move a piece to a new position." alt="" coords="463,137,649,163"/>
-<area shape="rect" id="node6" href="$classGameBoard.html#a2894091cbe76031ea654ef92e590a1f2" title="Perform castling." alt="" coords="477,5,635,47"/>
-<area shape="rect" id="node7" href="$classGameBoard.html#aba488e3ff9919419e83cbb0125cbf907" title="Perform an en passant move." alt="" coords="477,71,635,112"/>
-<area shape="rect" id="node3" href="$classGameBoard.html#a3e4d526fdf08893c6275d442950bc0c8" title="Handle a move from one position to another." alt="" coords="220,78,415,105"/>
-<area shape="rect" id="node5" href="$classGameBoard.html#a81c15f507a08e10b135e4ad9ff229f19" title="Move a piece to a new row and column." alt="" coords="224,137,411,163"/>
-<area shape="rect" id="node4" href="$classGameBoard.html#a899ff2f8180acb2757b416cf1b2fe3fc" title="Get the valid moves for a piece at a specific position." alt="" coords="5,71,172,112"/>
-</map>

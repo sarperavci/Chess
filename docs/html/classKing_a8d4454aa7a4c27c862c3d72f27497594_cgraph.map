@@ -1,4 +1,0 @@
-<map id="King::get_eatable_moves" name="King::get_eatable_moves">
-<area shape="rect" id="node1" title="Get the valid eatable moves for the King." alt="" coords="5,5,192,32"/>
-<area shape="rect" id="node2" href="$classKing.html#a138615ac7d71bbe9c2f64296feb30a14" title="Get the valid moves for the King." alt="" coords="240,5,411,32"/>
-</map>

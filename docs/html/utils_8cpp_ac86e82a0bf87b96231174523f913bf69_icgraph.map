@@ -1,8 +1,0 @@
-<map id="indexes2DToInt" name="indexes2DToInt">
-<area shape="rect" id="node1" title="Convert 2D indexes (row, column) to a 1D index." alt="" coords="252,131,373,157"/>
-<area shape="rect" id="node2" href="$classGameBoard.html#abad8396fe61897d62b78bf3b227d9c4d" title="Get the piece at a specific row and column." alt="" coords="19,5,190,32"/>
-<area shape="rect" id="node3" href="$classGame.html#ae84be229b07f93ccd18679641923d224" title="Handle a move given the row and column of the source and the destination." alt="" coords="26,80,183,107"/>
-<area shape="rect" id="node4" href="$classGameBoard.html#a81c15f507a08e10b135e4ad9ff229f19" title="Move a piece to a new row and column." alt="" coords="11,131,198,157"/>
-<area shape="rect" id="node5" href="$classGameBoard.html#ade9865bc8d93aad50578aa43a36c50ef" title="Remove a piece from a specific row and column." alt="" coords="5,181,204,208"/>
-<area shape="rect" id="node6" href="$classGameBoard.html#ac25ac74cfea7f84e6c796515856437d3" title="Set a piece at a specific row and column." alt="" coords="20,232,189,259"/>
-</map>

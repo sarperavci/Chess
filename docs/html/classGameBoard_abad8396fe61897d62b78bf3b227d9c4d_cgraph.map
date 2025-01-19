@@ -1,5 +1,0 @@
-<map id="GameBoard::get_piece" name="GameBoard::get_piece">
-<area shape="rect" id="node1" title="Get the piece at a specific row and column." alt="" coords="5,31,176,57"/>
-<area shape="rect" id="node2" href="$classGameBoard.html#aa81591622e92a3264e0945cd818767f1" title="Get the piece at a specific position." alt="" coords="224,5,395,32"/>
-<area shape="rect" id="node3" href="$utils_8h.html#ac86e82a0bf87b96231174523f913bf69" title="Convert 2D indexes (row, column) to a 1D index." alt="" coords="249,56,370,83"/>
-</map>

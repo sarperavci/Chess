@@ -1,4 +1,0 @@
-<map id="Rook::get_color" name="Rook::get_color">
-<area shape="rect" id="node1" title="Get the color of the Rook." alt="" coords="228,5,351,32"/>
-<area shape="rect" id="node2" href="$classRook.html#a01fc24c9e505f3e9014545734291b6ed" title="Check if a move is blocked." alt="" coords="5,5,180,32"/>
-</map>

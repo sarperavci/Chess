@@ -1,5 +1,0 @@
-<map id="GameBoard::remove_piece" name="GameBoard::remove_piece">
-<area shape="rect" id="node1" title="Remove a piece from a specific row and column." alt="" coords="5,31,204,57"/>
-<area shape="rect" id="node2" href="$utils_8h.html#ac86e82a0bf87b96231174523f913bf69" title="Convert 2D indexes (row, column) to a 1D index." alt="" coords="291,5,412,32"/>
-<area shape="rect" id="node3" href="$classGameBoard.html#a00c4018cce03f3525ec945c47b1e55e1" title="Remove a piece from a specific position." alt="" coords="252,56,451,83"/>
-</map>

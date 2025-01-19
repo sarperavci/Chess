@@ -1,5 +1,0 @@
-<map id="King::is_move_blocked" name="King::is_move_blocked">
-<area shape="rect" id="node1" title="Check if a move is blocked." alt="" coords="5,31,176,57"/>
-<area shape="rect" id="node2" href="$classKing.html#a9efe64ed95d69da7580cb888ef2de8bf" title="Get the color of the King." alt="" coords="227,5,346,32"/>
-<area shape="rect" id="node3" href="$classPiece.html#aaf128403767d777af9968e100358ff7b" title="Get the color of the piece." alt="" coords="224,56,349,83"/>
-</map>

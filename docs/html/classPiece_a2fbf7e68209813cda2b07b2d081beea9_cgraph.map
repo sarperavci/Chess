@@ -1,4 +1,0 @@
-<map id="Piece::is_valid_move" name="Piece::is_valid_move">
-<area shape="rect" id="node1" title="Check if a move is valid." alt="" coords="5,5,164,32"/>
-<area shape="rect" id="node2" href="$classPiece.html#af5c99e412c335ae438b1c5b68d4b7cd3" title="Get the valid moves for the piece." alt="" coords="212,5,388,32"/>
-</map>

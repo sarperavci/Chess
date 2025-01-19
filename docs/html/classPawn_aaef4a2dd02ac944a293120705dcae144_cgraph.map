@@ -1,6 +1,0 @@
-<map id="Pawn::is_move_blocked" name="Pawn::is_move_blocked">
-<area shape="rect" id="node1" title="Check if a move is blocked." alt="" coords="5,56,181,83"/>
-<area shape="rect" id="node2" href="$classPawn.html#a3804c63045a71dcfe940f907d94db57b" title="Get the color of the Pawn." alt="" coords="239,5,363,32"/>
-<area shape="rect" id="node3" href="$classPiece.html#aaf128403767d777af9968e100358ff7b" title="Get the color of the piece." alt="" coords="239,56,364,83"/>
-<area shape="rect" id="node4" href="$classPawn.html#acb6bfc55667bf5a8f6ea88ddf29b1049" title="Get the current position of the Pawn." alt="" coords="229,107,373,133"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="GameBoard::set_piece" name="GameBoard::set_piece">
-<area shape="rect" id="node1" title="Set a piece at a specific row and column." alt="" coords="5,31,175,57"/>
-<area shape="rect" id="node2" href="$utils_8h.html#ac86e82a0bf87b96231174523f913bf69" title="Convert 2D indexes (row, column) to a 1D index." alt="" coords="247,5,368,32"/>
-<area shape="rect" id="node3" href="$classGameBoard.html#aa02d8d95fee6bade7ca9470c9b728703" title="Set a piece at a specific position." alt="" coords="223,56,392,83"/>
-</map>

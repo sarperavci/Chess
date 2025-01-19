@@ -1,6 +1,0 @@
-<map id="MainWindow::MainWindow" name="MainWindow::MainWindow">
-<area shape="rect" id="node1" title="Constructor for the MainWindow class." alt="" coords="5,35,203,61"/>
-<area shape="rect" id="node2" href="$classGame.html#ab7e16c83bee67f2dba5dd50e2663eb08" title="Get the game board." alt="" coords="251,5,429,32"/>
-<area shape="rect" id="node3" href="$classGameBoard.html#a9c4245c13e62057f5c9794ff1f10c592" title="Initialize the board with the starting positions of the pieces." alt="" coords="263,57,417,98"/>
-<area shape="rect" id="node4" href="$classGameBoard.html#aa02d8d95fee6bade7ca9470c9b728703" title="Set a piece at a specific position." alt="" coords="477,64,647,91"/>
-</map>

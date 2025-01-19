@@ -1,6 +1,0 @@
-<map id="GameBoard::is_en_passant" name="GameBoard::is_en_passant">
-<area shape="rect" id="node1" title="Check if an en passant move is possible." alt="" coords="5,64,204,91"/>
-<area shape="rect" id="node2" href="$classPiece.html#aaf128403767d777af9968e100358ff7b" title="Get the color of the piece." alt="" coords="271,5,397,32"/>
-<area shape="rect" id="node3" href="$classPiece.html#a53ed2b06b19f8c7ebd9201e41b5857a1" title="Get the valid eatable moves for the piece." alt="" coords="263,57,405,98"/>
-<area shape="rect" id="node4" href="$classPiece.html#ae72a03e5851c5b44871d34c8540e54fc" title="Get the type of the piece." alt="" coords="252,123,416,149"/>
-</map>

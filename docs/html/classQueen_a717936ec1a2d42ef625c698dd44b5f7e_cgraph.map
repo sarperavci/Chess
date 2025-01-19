@@ -1,6 +1,0 @@
-<map id="Queen::is_move_blocked" name="Queen::is_move_blocked">
-<area shape="rect" id="node1" title="Check if a move is blocked." alt="" coords="5,56,189,83"/>
-<area shape="rect" id="node2" href="$classQueen.html#a3329027aba1db4a463195e0837b0353c" title="Get the color of the Queen." alt="" coords="247,5,379,32"/>
-<area shape="rect" id="node3" href="$classPiece.html#aaf128403767d777af9968e100358ff7b" title="Get the color of the piece." alt="" coords="251,56,376,83"/>
-<area shape="rect" id="node4" href="$classQueen.html#a23df9933f1b5bf8d52ce519da895ac52" title="Get the current position of the Queen." alt="" coords="237,107,389,133"/>
-</map>

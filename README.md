@@ -1,14 +1,4 @@
-# OOP Group8 Chess Game
-
-This repo is for the OOP project of Group 8.
-
-## Group Members
-
-- Sarper AVCI
-- Utku AKKUŞOĞLU
-- Emre KARABURU
-- Okan Rıdvan GÜR
-- Emre ÖZKENT
+# Chess - A Qt-based Chess Game
 
 ## Demo Video
 
@@ -16,15 +6,9 @@ You can watch the demo video of the game by clicking the image below:
 
 [![Demo Video](docs/video.png)](https://www.youtube.com/watch?v=vasLyqTEhRs)
 
-## UML Diagram && Doxygen Documentation
-
-You can find the UML diagram and Doxygen documentation as html in the `/docs` directory. You can also find their creation configurations as `Doxyfile` and `diagram.puml` in the `/TheChessGame` directory.
-
-![UML Diagram](docs/UML.png)
-
 ## Pre-compiled Binaries
 
-You can get the pre-compiled binaries from the `/TheChessGame/build` directory. You can run the game by executing the `TheChessGame` binary (Linux) or `TheChessGame.exe` binary (Windows).
+You can get the pre-compiled binaries from the releases page.
 
 ## Compilation Instructions
 
@@ -39,20 +23,20 @@ qmake
 make
 ```
 
-That's it! You can run the game by executing the `./build/TheChessGame` binary.
+That's it! You can run the game by executing the `./build/Chess` binary.
 
 ### Compile Statically for Windows via Docker Container
 
 Feeling brave? You can compile the project for Windows from Linux by using the `mxe` Docker container. First, you need to have Docker installed on your system. Then, open a terminal in the project directory and run the following command:
 
 ```bash
-docker run -it -v $(pwd):/app syping/qt5-static-mingw bash -c "cd /app && export QT_SELECT=qt5-x86_64-w64-mingw32 && qmake -qt=qt5-x86_64-w64-mingw32 && make clean && make && ls -lah build/TheChessGame.exe"
+docker run -it -v $(pwd):/app syping/qt5-static-mingw bash -c "cd /app && export QT_SELECT=qt5-x86_64-w64-mingw32 && qmake -qt=qt5-x86_64-w64-mingw32 && make clean && make && ls -lah build/Chess.exe"
 ```
 
 Example output:
 
 ```bash
-sarp@IdeaPad:~/Documents/GitHub/OOP_Group8/TheChessGame$ docker run -it -v $(pwd):/app syping/qt5-static-mingw bash -c "cd /app && export QT_SELECT=qt5-x86_64-w64-mingw32 && qmake -qt=qt5-x86_64-w64-mingw32 && make clean && make && ls -lah build/TheChessGame.exe"
+sarp@IdeaPad:~/Documents/GitHub/OOP_Group8/Chess$ docker run -it -v $(pwd):/app syping/qt5-static-mingw bash -c "cd /app && export QT_SELECT=qt5-x86_64-w64-mingw32 && qmake -qt=qt5-x86_64-w64-mingw32 && make clean && make && ls -lah build/Chess.exe"
 Info: creating stash file /app/.qmake.stash
 make -f Makefile.Release clean
 make[1]: Entering directory '/app'
@@ -65,7 +49,7 @@ x86_64-w64-mingw32-g++ -c -pipe -fno-keep-inline-dllexport -O2 -Wall -W -Wextra 
 x86_64-w64-mingw32-g++ -c -pipe -fno-keep-inline-dllexport -O2 -Wall -W -Wextra -fexceptions -mthreads -DUNICODE -D_UNICODE -DWIN32 -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN -I. -Iinclude -I/opt/windev/qt64s_5.9.9/include -I/opt/windev/qt64s_5.9.9/include/QtSvg -I/opt/windev/qt64s_5.9.9/include/QtWidgets -I/opt/windev/qt64s_5.9.9/include/QtGui -I/opt/windev/qt64s_5.9.9/include/QtCore -Ibuild/moc -I/opt/windev/qt64s_5.9.9/mkspecs/win32-g++  -o build/obj/GameBoard.o src/GameBoard.cpp
 [...]
 make[1]: Leaving directory '/app'
--rwxr-xr-x 1 root root 17M Dec 14 20:12 build/TheChessGame.exe
+-rwxr-xr-x 1 root root 17M Dec 14 20:12 build/Chess.exe
 ```
 
 ### Compile Statically for Linux via Docker Container
@@ -73,15 +57,15 @@ make[1]: Leaving directory '/app'
 You can also compile the project for Linux from Linux by using the `fishwaldo/qt-staticbuilds` Docker container. First, you need to have Docker installed on your system. Then, open a terminal in the project directory and run the following command:
 
 ```bash
-docker run -it -v $(pwd):/app fishwaldo/qt-staticbuilds:5.12.4 bash -c "cd /app && rm -f .qmake.stash && /opt/Qt/5.12.4/bin/qmake && make clean && make && ls -lah build/TheChessGame"
+docker run -it -v $(pwd):/app fishwaldo/qt-staticbuilds:5.12.4 bash -c "cd /app && rm -f .qmake.stash && /opt/Qt/5.12.4/bin/qmake && make clean && make && ls -lah build/Chess"
 ```
 
 Example output:
 
 ```bash
-sarp@IdeaPad:~/Documents/GitHub/OOP_Group8/TheChessGame$ docker run -it -v $(pwd):/app fishwaldo/qt-staticbuilds:5.12.4 bash -c "cd /app && rm -f .qmake.stash && /opt/Qt/5.12.4/bin/qmake && make clean && make && ls -lah build/TheChessGame"
+sarp@IdeaPad:~/Documents/GitHub/OOP_Group8/Chess$ docker run -it -v $(pwd):/app fishwaldo/qt-staticbuilds:5.12.4 bash -c "cd /app && rm -f .qmake.stash && /opt/Qt/5.12.4/bin/qmake && make clean && make && ls -lah build/Chess"
 [...]
--rwxr-xr-x 1 root root 14M Dec 23 21:40 build/TheChessGame
+-rwxr-xr-x 1 root root 14M Dec 23 21:40 build/Chess
 ```
 
 ### Deployment with Dynamic Linking on Windows
@@ -107,9 +91,9 @@ cd C:\Qt\6.8.0\mingw_64\bin
 ```
 
 Finally, let's assume that the project's .exe file is located at
-`C:\ProjectQt\OOP_Group8\TheChessGame\build\Desktop_Qt_6_8_0_MinGW_64_bit-Debug\build\TheChessGame.exe`
+`C:\ProjectQt\OOP_Group8\Chess\build\Desktop_Qt_6_8_0_MinGW_64_bit-Debug\build\Chess.exe`
 You can copy the necessary dependencies with this command:
 
 ```powershell
-"C:\Qt\6.8.0\mingw_64\bin\windeployqt.exe" "C:\ProjectQt\OOP_Group8\TheChessGame\build\Desktop_Qt_6_8_0_MinGW_64_bit-Debug\build\TheChessGame.exe"
+"C:\Qt\6.8.0\mingw_64\bin\windeployqt.exe" "C:\ProjectQt\OOP_Group8\Chess\build\Desktop_Qt_6_8_0_MinGW_64_bit-Debug\build\Chess.exe"
 ```

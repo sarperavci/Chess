@@ -1,4 +1,0 @@
-<map id="Game::handle_move" name="Game::handle_move">
-<area shape="rect" id="node1" title="Handle a move given the row and column of the source and the destination." alt="" coords="5,29,163,56"/>
-<area shape="rect" id="node2" href="$utils_8h.html#ac86e82a0bf87b96231174523f913bf69" title="Convert 2D indexes (row, column) to a 1D index." alt="" coords="211,29,332,56"/>
-</map>
