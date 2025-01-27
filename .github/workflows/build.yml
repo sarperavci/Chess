@@ -1,0 +1,67 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and Cross-Compile
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        os: [windows, linux]
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set Up Docker
+        run: sudo apt-get install -y docker.io
+
+      - name: Cross-Compile for ${{ matrix.os }}
+        env:
+          OS_TARGET: ${{ matrix.os }}
+        run: |
+          if [ "${{ matrix.os }}" = "windows" ]; then
+            docker run -v $(pwd):/app syping/qt5-static-mingw bash -c \
+            "cd /app && export QT_SELECT=qt5-x86_64-w64-mingw32 && \
+            qmake -qt=qt5-x86_64-w64-mingw32 && make clean && make";
+          else
+            docker run -v $(pwd):/app fishwaldo/qt-staticbuilds:5.12.4 bash -c \
+            "cd /app && /opt/Qt/5.12.4/bin/qmake && make clean && make";
+          fi
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: chess-build-${{ matrix.os }}
+          path: |
+            ./build/*.exe
+            ./build/*.bin
+
+  release:
+    name: Create Release
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: chess-build-linux
+
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            ./build/Chess.exe
+            ./build/Chess
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
