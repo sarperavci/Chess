@@ -42,6 +42,7 @@ jobs:
         env:
           OS_TARGET: ${{ matrix.os }}
         run: |
+          cd Chess
           if [ "${{ matrix.os }}" = "windows" ]; then
             docker run -v $(pwd):/app syping/qt5-static-mingw bash -c \
             "cd /app && export QT_SELECT=qt5-x86_64-w64-mingw32 && \
