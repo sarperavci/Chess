@@ -9,6 +9,10 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   build:
     name: Build and Cross-Compile
@@ -64,7 +68,11 @@ jobs:
     name: Create Release
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' # Only create release on main branch
+    if: github.ref == 'refs/heads/main'
+    
+    permissions:
+      contents: write
+      packages: write
 
     steps:
       - name: Download Windows Artifact
