@@ -53,7 +53,7 @@ jobs:
           fi
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: chess-build-${{ matrix.os }}
           path: |
@@ -64,18 +64,28 @@ jobs:
     name: Create Release
     needs: build
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' # Only create release on main branch
 
     steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v3
+      - name: Download Windows Artifact
+        uses: actions/download-artifact@v4
         with:
-          name: chess-build-${{ matrix.os }}
+          name: chess-build-windows
+          path: windows-build
+
+      - name: Download Linux Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: chess-build-linux
+          path: linux-build
 
       - name: Upload Release Assets
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            ./Chess/build/Chess.exe
-            ./Chess/build/Chess
+            windows-build/Chess.exe
+            linux-build/Chess
+          generate_release_notes: true
+          tag_name: v${{ github.run_number }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
