@@ -87,13 +87,25 @@ jobs:
           name: chess-build-linux
           path: linux-build
 
+      - name: Compress Artifacts
+        run: |
+          cd windows-build && zip -j Chess-Windows.zip Chess.exe && cd ..
+          cd linux-build && tar -czf Chess-Linux.tar.gz Chess && cd ..
+
       - name: Upload Release Assets
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            windows-build/Chess.exe
-            linux-build/Chess
+            windows-build/Chess-Windows.zip
+            linux-build/Chess-Linux.tar.gz
           generate_release_notes: true
-          tag_name: v${{ github.run_number }}
+          tag_name: latest
+          name: Latest Release
+          prerelease: false
+          body: |
+            Latest build of Chess game
+            
+            - Windows: Download Chess-Windows.zip
+            - Linux: Download Chess-Linux.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
